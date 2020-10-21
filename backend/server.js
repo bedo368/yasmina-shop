@@ -1,18 +1,32 @@
-const express = require("express")
-const dotenv =  require("dotenv")
-const { graphqlHTTP }  = require( "express-graphql") 
+import express from "express"
+import dotenv from "dotenv"
+import { graphqlHTTP } from "express-graphql"
+import connectDB from "./config/connectDB.js"
+import schema from "./qraphql_and_database/qraphql/schema/qrpahql_schema.js"
+import resolovers from "./qraphql_and_database/qraphql/resolvers/resolovers.js"
+import UserRoutes from "./auth/authRoutes.js"
+import { errorHandler } from "./Middleware/errorHandeler.js"
+import {authMiddleWare} from "./Middleware/auth.js"
 const app = express()
-const schema  = require( "./qraphql_and_database/qraphql/schema/qrpahql_schema.js")
-const resolovers = require( "./qraphql_and_database/qraphql/resolvers/resolovers.js")
-dotenv.config()
-app.use(
-    "/graphql",
-    graphqlHTTP({
-      graphiql: true,
-      schema: schema,
-      rootValue: resolovers,
-    })
-  );
 
+app.use(express.json())
+app.use(authMiddleWare)
+
+app.use("/", UserRoutes)
+
+dotenv.config()
+app.use(errorHandler)
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    graphiql: true,
+    schema: schema,
+    rootValue: resolovers,
+  })
+)
+
+
+connectDB()
 const PORT = process.env.PORT || 5000
-app.listen(PORT , console.log("server start"))
+app.listen(PORT, console.log("server start"))

@@ -1,0 +1,7 @@
+const productTypes = {
+    FETCH_PRODUCT_START : "FETCH_PRODUCT_START",
+    FETCH_PRODUCT_SUCCESS:"FETCH_PRODUCT_SUCCESS",
+    FETCH_PRODUCT_FAIL:"FETCH_PRODUCT_FAIL"
+}
+
+export default productTypes

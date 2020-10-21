@@ -1,8 +1,8 @@
-const { buildSchema } = require("graphql");
+import { buildSchema } from "graphql"
 
-module.exports =  buildSchema(`
+export default  buildSchema(`
 
-    type product{
+    type Product{
         _id: ID!
         name: String!
         image: String!
@@ -16,10 +16,17 @@ module.exports =  buildSchema(`
         
     } 
 
+    type User {
+        _id :ID!
+        name : String!
+        password: String!
+    }
+
 
     type rootQuery{ 
-        getAllProducts : [product]!
-        getProductById(id:String): product
+        getUserProfile : User
+        getAllProducts : [Product]!
+        getProductById(id:String): Product
     }
 
     schema {

@@ -5,7 +5,9 @@ import { Container } from "react-bootstrap"
 import HomePage from "./pages/homePage/HomePage"
 import {BrowserRouter as Router , Route } from "react-router-dom"
 import ProductPage from "./pages/porductPage/ProductPage"
-function App() {
+import cartPage from "./pages/cartPage.jsx/cartPage"
+function App({dispatch}) {
+  
   return (
     <Router>
       <Header />
@@ -13,6 +15,7 @@ function App() {
         <Container>
             <Route path="/" component={HomePage} exact /> 
             <Route path="/product/:id" component={ProductPage}  />
+            <Route path="/cart/:id?" component={cartPage}  />
         </Container>
       </main>
 

@@ -1,6 +1,6 @@
-const productResolovers = require( "./product.resolovers")
+import productResolovers from "./product.resolovers.js"
 
-module.exports =  {
+export default   {
     ...productResolovers
 
 }
