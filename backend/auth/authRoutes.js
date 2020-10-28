@@ -1,9 +1,9 @@
 import express from "express"
 const router = express.Router()
 
-import {authUser} from "./authFunctions.js"
+import {userLogin ,userRegister} from "./authFunctions.js"
 
-router.post("/login" , authUser )
-
+router.post("/login" , userLogin )
+router.post("/register" , userRegister )
 
 export default router

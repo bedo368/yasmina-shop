@@ -1,6 +1,6 @@
 import { buildSchema } from "graphql"
 
-export default  buildSchema(`
+export default buildSchema(`
 
     type Product{
         _id: ID!
@@ -20,6 +20,8 @@ export default  buildSchema(`
         _id :ID!
         name : String!
         password: String!
+        email : String!
+        isAdmin : String!
     }
 
 
@@ -28,9 +30,13 @@ export default  buildSchema(`
         getAllProducts : [Product]!
         getProductById(id:String): Product
     }
+    type rootMutation {
+        updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!
+    }
 
     schema {
         query : rootQuery
+        mutation : rootMutation
     }
 
 
