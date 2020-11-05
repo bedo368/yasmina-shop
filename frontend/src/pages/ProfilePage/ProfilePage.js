@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react"
-import { Button, Col, Form, Row } from "react-bootstrap"
+import { Button, Col, Form, Row, Table } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../../components/message/Message"
 import Loader from "../../components/loader/Loader"
-import { getUserProfile,updateUserProfile } from "../../redux/user/userProfile/userProfileAction"
-
+import { LinkContainer } from "react-router-bootstrap"
+import {
+  getUserProfile,
+  updateUserProfile,
+} from "../../redux/user/userProfile/userProfileAction"
+import { getLogedInUserOrders } from "../../redux/order/getLogedInUserOrders/getLogedInUserOrderAction"
 const ProfilePage = ({ location, history }) => {
   const dispatch = useDispatch()
   const { userInfo } = useSelector((state) => state.userReducer)
@@ -14,6 +18,12 @@ const ProfilePage = ({ location, history }) => {
     getUserProlieFetchState,
     userProfileErrorMessage,
   } = useSelector((state) => state.userProfileReducer)
+  const {
+    LogedInUserOrdersFetchState,
+    ordersList,
+    LogedInUserErrorMessage,
+  } = useSelector((state) => state.getLogedInUserOrdersReducer)
+
   const [userInfoInput, setUserInfo] = useState({
     email: "",
     newPassword: "",
@@ -34,10 +44,15 @@ const ProfilePage = ({ location, history }) => {
       if (userInfo) {
         dispatch(getUserProfile())
       }
-    }else{
-      setUserInfo(preval => ({...preval,email:userProfileInfo.email , name : userProfileInfo.name }) )
+    } else {
+      setUserInfo((preval) => ({
+        ...preval,
+        email: userProfileInfo.email,
+        name: userProfileInfo.name,
+      }))
     }
-  }, [userInfo , userProfileInfo , dispatch , ProfilePage  ])
+    dispatch(getLogedInUserOrders())
+  }, [userInfo, userProfileInfo, dispatch, ProfilePage])
   useEffect(() => {
     if (!userInfo) {
       history.push(redirect)
@@ -45,8 +60,7 @@ const ProfilePage = ({ location, history }) => {
   }, [history, userInfo])
   const submitHandler = (event) => {
     event.preventDefault()
-    dispatch(updateUserProfile(name,email ,newPassword, oldPassword ))
-
+    dispatch(updateUserProfile(name, email, newPassword, oldPassword))
   }
   return (
     <Row>
@@ -69,7 +83,6 @@ const ProfilePage = ({ location, history }) => {
               name="name"
               value={name}
               onChange={userInfoChange}
-              
             />
           </Form.Group>
           <Form.Group controlId="email">
@@ -80,7 +93,6 @@ const ProfilePage = ({ location, history }) => {
               name="email"
               value={email}
               onChange={userInfoChange}
-              
             />
           </Form.Group>
           <Form.Group controlId="newPassword">
@@ -91,7 +103,6 @@ const ProfilePage = ({ location, history }) => {
               name="newPassword"
               value={newPassword}
               onChange={userInfoChange}
-              
             />
           </Form.Group>
           <Form.Group controlId="oldPassword">
@@ -108,7 +119,59 @@ const ProfilePage = ({ location, history }) => {
           <Button type="submit"> update</Button>
         </Form>
       </Col>
-      <Col md={9}></Col>
+      <Col md={9}>
+        {LogedInUserOrdersFetchState ? (
+          <Loader />
+        ) : LogedInUserErrorMessage ? (
+          <Message variant="danger">{LogedInUserErrorMessage}</Message>
+        ) : (
+          <Table striped bordered hover responsive className="table-sm">
+            <thead>
+              <th>ID</th>
+              <th>Date</th>
+              <th>Total</th>
+              <th>Paid</th>
+              <th>Deliverd </th>
+              <th></th>
+            </thead>
+            <tbody>
+              {ordersList.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{Date(order.createdAt).substring(0, 10)}</td>
+                  <td>{order.totalPrice}</td>
+                  <td>
+                    {order.isPaid ? (
+                      Date(order.paidAt).substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {order.isDelivered ? (
+                      Date(order.deliveredAt).substring(0, 10)
+                    ) : (
+                      <i className="fas fa-times" style={{ color: "red" }}></i>
+                    )}
+                  </td>
+                  <td>
+                    {" "}
+                    <Button
+                      onClick={() => {
+                        history.push(`/order/${order._id}`)
+                      }}
+                      className="btn-sm"
+                      variant="info"
+                    >
+                      more detail
+                    </Button>{" "}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </Col>
     </Row>
   )
 }

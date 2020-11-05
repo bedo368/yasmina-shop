@@ -1,18 +1,33 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Message from "../../components/message/Message"
+import { createOrder } from "../../redux/order/orderAction"
 
 const PlaceOrderPage = ({ history }) => {
-  const { shippingAddress, paymentMethod, cartItems } = useSelector(
-    (state) => state.cartReducer
-  )
+  const dispatch = useDispatch()
+  const cart = useSelector((state) => state.cartReducer)
+  const order = useSelector((state) => state.orderReducer)
+  const { shippingAddress, paymentMethod, cartItems } = cart
   if (!shippingAddress) {
     history.push("/shipping")
   } else if (!paymentMethod) {
     history.push("/payment")
   }
+  const placeOrderHandler = (e) => {
+    dispatch(createOrder(cart))
+  }
+  useEffect(() => {
+    if (order.success) {
+      history.push(`/order/${order.orders._id}`)
+    }
+  }, [order.success])
+  // calclute price
+  cart.itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
+  cart.shippingPrice = cart.itemPrices > 100 ? 0 : 40
+  cart.taxPrice = Number(0.15 * cart.itemsPrice)
+  cart.totalPrice = Number(cart.itemsPrice + cart.shippingPrice + cart.taxPrice)
   return (
     <>
       <Row>
@@ -58,40 +73,47 @@ const PlaceOrderPage = ({ history }) => {
           </ListGroup.Item>
         </Col>
         <Col md={4}>
-            <Card>
-                <ListGroup variant="flush">
-                    <ListGroup.Item>
-                        <h2>Order summary</h2>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Items Price</Col>
-                            <Col>$</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Shipping</Col>
-                            <Col>$</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Tax</Col>
-                            <Col>$</Col>
-                        </Row>
-                    </ListGroup.Item>
-                </ListGroup>
-                <ListGroup.Item>
-                        <Row>
-                            <Col>total</Col>
-                            <Col>$</Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Button type="button" className="btn-block" disabled={cartItems.length ===0 || !shippingAddress || !paymentMethod } >payment </Button>
-                    </ListGroup.Item>
-            </Card>
+          <Card>
+            <ListGroup variant="flush">
+              <ListGroup.Item>
+                <h2>Order summary</h2>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Items Price</Col>
+                  <Col> ${cart.itemsPrice} </Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Shipping</Col>
+                  <Col>${cart.shippingPrice}</Col>
+                </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Row>
+                  <Col>Tax</Col>
+                  <Col>${cart.taxPrice} </Col>
+                </Row>
+              </ListGroup.Item>
+            </ListGroup>
+            <ListGroup.Item>
+              <Row>
+                <Col>total</Col>
+                <Col>${cart.totalPrice} </Col>
+              </Row>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button
+                type="button"
+                className="btn-block"
+                disabled={cartItems.length === 0 || !shippingAddress || !paymentMethod}
+                onClick={placeOrderHandler}
+              >
+                payment{" "}
+              </Button>
+            </ListGroup.Item>
+          </Card>
         </Col>
       </Row>
     </>

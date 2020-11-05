@@ -2,7 +2,7 @@ import mongoose from "mongoose"
 
 const orderSchema = mongoose.Schema(
   {
-    user: {
+    orderCreator: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "User",
@@ -24,18 +24,22 @@ const orderSchema = mongoose.Schema(
     shippingAddress: {
       address: { type: String, required: true },
       city: { type: String, required: true },
-      postlCode: { type: String, required: true },
+      postalCode: { type: String, required: true },
       country: { type: String, required: true },
     },
-    paymentMethode: {
+    paymentMethod: {
       type: String,
       required: true,
     },
     paymentResult: {
-      id: { type: String, required: true },
-      status: { type: String, required: true },
-      updateTime: { type: String, required: true },
-      email_Adress: { type: String, required: true },
+      id: { type: String,},
+      status: { type: String,  },
+      update_time: { type: String, },
+      email_Address: { type: String,},
+    },
+    itemsPrice : {
+      type: Number,
+      required: true,
     },
     taxPrice: {
       type: Number,
@@ -52,7 +56,7 @@ const orderSchema = mongoose.Schema(
       required: true,
       default: 0.0,
     },
-    isPaied: {
+    isPaid: {
       type: Boolean,
       required: true,
       default: false,

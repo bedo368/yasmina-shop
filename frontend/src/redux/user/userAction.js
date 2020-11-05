@@ -37,6 +37,7 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: userTypes.LOGOUT,
   })
+  dispatch({type :"USER_PROFILE_RESET"})
   localStorage.setItem("userInfo", null)
 }
 

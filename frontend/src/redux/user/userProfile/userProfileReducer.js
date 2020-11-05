@@ -37,6 +37,9 @@ const userProfileReducer = (state = INTIAL_STATE, action) => {
       }
     case userProfilTypes.USER_UPDATE_PROFILE_FAIL:
       return { ...state, userProfileErrorMessage: action.payload ,getUserProlieFetchState: false }
+
+    case userProfilTypes.USER_PROFILE_RESET : 
+    return{...INTIAL_STATE}
     default:
       return state
   }

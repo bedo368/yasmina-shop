@@ -15,6 +15,27 @@ export default buildSchema(`
         numReviews: Int!
         
     } 
+    type OrderItem {
+        _id :ID!
+        name:String!
+        qty: Float!
+        image:String!
+        price: Float!
+        product: Product!
+        
+    }
+    type PaymentResult {
+        id: String!
+        status:String!
+        update_time:  String!
+        email_Address: String!
+    }
+    type shippingAddress {
+        address:String!
+        city: String!
+        postalCode: String!
+        country:  String!
+    }
 
     type User {
         _id :ID!
@@ -23,15 +44,46 @@ export default buildSchema(`
         email : String!
         isAdmin : String!
     }
+    type Order {
+        _id : ID!
+        orderItems : [OrderItem!]!
+        shippingAddress : shippingAddress!
+        paymentMethod : String!
+        taxPrice : String!
+        shippingPrice: String!
+        totalPrice: String!
+        orderCreator: User
+        createdAt : String
+        updatedAt: String 
+        itemsPrice:String!
+        paymentResult: PaymentResult!
+        isPaid : Boolean!
+        isDelivered : Boolean!
+        paidAt : String
+        deliveredAt: String
+
+    }
 
 
     type rootQuery{ 
         getUserProfile : User
         getAllProducts : [Product]!
         getProductById(id:String): Product
+        getOrderById(id:String): Order!
+        getAllLogedInUserOrders : [Order]!
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!
+        CreateOrder(orderItems : String!
+            shippingAddress : String!
+            paymentMethod : String! 
+            taxPrice : Float!
+            shippingPrice: Float!
+            totalPrice: Float!
+            itemsPrice : Float! ) : Order!
+        updateOrderToPaid(orderId:String! ,orderResult:String!) : Order!
+
+       
     }
 
     schema {
