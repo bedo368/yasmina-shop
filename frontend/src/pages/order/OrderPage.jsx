@@ -150,7 +150,7 @@ const OrderPage = ({ match }) => {
                 <Col>${orderDetail?.totalPrice} </Col>
               </Row>
             </ListGroup.Item>
-            {!orderDetail?.isPaid && (
+            {/* {!orderDetail?.isPaid && (
               <ListGroup>
                 { !sdkReady ? (
                   <Loader />
@@ -165,7 +165,7 @@ const OrderPage = ({ match }) => {
                  
                 )}
               </ListGroup>
-            )}
+            )} */}
           </Card>
         </Col>
       </Row>

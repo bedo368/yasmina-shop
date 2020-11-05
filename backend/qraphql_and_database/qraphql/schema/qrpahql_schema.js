@@ -42,7 +42,7 @@ export default buildSchema(`
         name : String!
         password: String!
         email : String!
-        isAdmin : String!
+        isAdmin : Boolean!
     }
     type Order {
         _id : ID!
@@ -71,6 +71,7 @@ export default buildSchema(`
         getProductById(id:String): Product
         getOrderById(id:String): Order!
         getAllLogedInUserOrders : [Order]!
+        getAllUsersForAdmin : [User]!
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!

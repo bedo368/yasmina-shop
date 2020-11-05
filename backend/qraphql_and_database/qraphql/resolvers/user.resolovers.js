@@ -1,6 +1,6 @@
 import User from "../../models/userModels.js"
 import asyncHandler from "express-async-handler"
-
+// user query
 const userQuery = {
   getUserProfile: asyncHandler(async (args, req) => {
     if (!req.isAuth) {
@@ -20,14 +20,36 @@ const userQuery = {
       }
     }
   }),
+  // get all users for admin
+  getAllUsersForAdmin: asyncHandler(async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("please log in ")
+    } else {
+      try {
+        const currentUser = await User.findById(req.userId)
+
+        if (!currentUser.isAdmin) {
+          throw new Error("you are not admin ")
+        } else if (currentUser.isAdmin) {
+          const users = await User.find({})
+          return users
+        }
+      } catch (error) {
+        throw new Error(error)
+      }
+    }
+  }),
+}
+
+// user mutation
+const userMutation = {
   updateUserProfile: asyncHandler(async ({ name, email, password, oldPassword }, req) => {
     if (!req.isAuth) {
       throw new Error("not auth")
     } else {
-
       const user = await User.findById(req.userId)
       const matchedpasswrd = await user.matchPassword(oldPassword)
-      if (  !matchedpasswrd) {
+      if (!matchedpasswrd) {
         throw new Error("old password is incorrect")
       }
       if (user) {
@@ -55,5 +77,6 @@ const userQuery = {
 
 const userResolovers = {
   ...userQuery,
+  ...userMutation,
 }
 export default userResolovers
