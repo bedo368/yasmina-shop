@@ -7,7 +7,6 @@ export const userLogin = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email : email.toLowerCase() })
   if (user) {
     if (await user.matchPassword(password)) {
-      console.log("user is auth")
       res.json({
         _id: user._id,
         name: user.name,

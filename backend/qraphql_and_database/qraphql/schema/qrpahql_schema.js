@@ -43,6 +43,7 @@ export default buildSchema(`
         password: String!
         email : String!
         isAdmin : Boolean!
+        ordersList : [Order]!
     }
     type Order {
         _id : ID!
@@ -72,6 +73,7 @@ export default buildSchema(`
         getOrderById(id:String): Order!
         getAllLogedInUserOrders : [Order]!
         getAllUsersForAdmin : [User]!
+        getUserByIdForAdmin (id:String!): User!
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!
@@ -83,6 +85,8 @@ export default buildSchema(`
             totalPrice: Float!
             itemsPrice : Float! ) : Order!
         updateOrderToPaid(orderId:String! ,orderResult:String!) : Order!
+
+        removeUserById(id:String!) : User!
 
        
     }

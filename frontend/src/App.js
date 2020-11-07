@@ -14,6 +14,7 @@ import PaymentMetodPage from "./pages/PaymentMetodPage/PaymentMetodPage"
 import PlaceOrderPage from "./pages/PlaceOrderPage/PlaceOrderPage"
 import OrderPage from "./pages/order/OrderPage"
 import UsersListPage from "./pages/usersPage/UsersListPage"
+import UserOrderPage from "./pages/userOrderPage/UserOrderPage"
 function App({}) {
   return (
     <Router>
@@ -26,6 +27,7 @@ function App({}) {
           <Route path="/login" component={LoginPage} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/user/orders" component={UserOrderPage} />
           <Route path="/shipping" component={ShippingPage} />
           <Route path="/payment" component={PaymentMetodPage} />
           <Route path="/placeorder" component={PlaceOrderPage} />

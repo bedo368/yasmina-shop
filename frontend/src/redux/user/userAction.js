@@ -33,12 +33,16 @@ export const login = (email, password) => async (dispatch, getState) => {
     localStorage.setItem("userInfo", null)
   }
 }
+
+
+
 export const logout = () => (dispatch) => {
   dispatch({
     type: userTypes.LOGOUT,
   })
   dispatch({type :"USER_PROFILE_RESET"})
   localStorage.setItem("userInfo", null)
+  dispatch({type :"REST_ADMIN"})
 }
 
 export const register = (name, email, password) => async (dispatch, getState) => {

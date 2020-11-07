@@ -20,7 +20,7 @@ const cartReducer = (state = intialState, action) => {
   switch (action.type) {
     case cartTypes.CART_ADD_ITEM:
       return addItemUtalits(state, action)
-      break
+      
     case cartTypes.CART_REMOVE_ITEM:
       return {
         ...state,

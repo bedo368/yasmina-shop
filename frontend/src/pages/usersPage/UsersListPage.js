@@ -3,19 +3,38 @@ import { Button, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
-import { getUsersForAdmin } from "../../redux/user/admin/adminAction"
+import {
+  getUsersForAdmin,
+  removeUserFromUsersList,
+} from "../../redux/user/admin/adminAction"
 
 const UsersListPage = ({ history }) => {
   const dispatch = useDispatch()
-  const { usersList, usersFetchState, usersListErrorMessage } = useSelector(
-    (state) => state.adminReducer
-  )
-  const deleteHandler = () => {}
+  const {
+    usersList,
+    usersFetchState,
+    usersListErrorMessage,
+    deleteUserErrorMessage,
+  } = useSelector((state) => state.adminReducer)
+  const { userInfo } = useSelector((state) => state.userReducer)
+
+  const deleteHandler = (userId) => {
+    dispatch(removeUserFromUsersList(userId))
+  }
   useEffect(() => {
-    dispatch(getUsersForAdmin())
-  }, [dispatch])
+    if (!userInfo) {
+      history.push("/")
+    }
+    if (userInfo) {
+      dispatch(getUsersForAdmin())
+    }
+  }, [dispatch, userInfo])
   return (
     <>
+      {deleteUserErrorMessage && (
+        <Message variant="danger">{deleteUserErrorMessage}</Message>
+      )}
+
       <h1>users</h1>
       {usersFetchState ? (
         <Loader />

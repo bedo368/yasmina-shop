@@ -1,5 +1,6 @@
 import User from "../../models/userModels.js"
 import asyncHandler from "express-async-handler"
+import Order from "../../models/orderModel.js"
 // user query
 const userQuery = {
   getUserProfile: asyncHandler(async (args, req) => {
@@ -39,6 +40,20 @@ const userQuery = {
       }
     }
   }),
+  getUserByIdForAdmin: asyncHandler(async (args, req) => {
+    const { id } = args
+    if (req.isAuth) {
+      const isAdmin = await User.findById(req.userId)
+      if (isAdmin.isAdmin) {
+        const fetchedUser = await User.findById(id)
+        return fetchedUser
+      } else {
+        throw new Error("you are not admin")
+      }
+    } else {
+      throw new Error("please log in")
+    }
+  }),
 }
 
 // user mutation
@@ -71,6 +86,29 @@ const userMutation = {
       }
 
       throw new Error("user did't update please try agien ")
+    }
+  }),
+  // remove user for admin only
+  removeUserById: asyncHandler(async ({ id }, req) => {
+    if (req.isAuth) {
+      const isAdmin = await User.findById(req.userId)
+      if (isAdmin.isAdmin) {
+        const userToRemove = await User.findById({ _id: id })
+        if (userToRemove.isAdmin) {
+          throw new Error("you cant't delete admin")
+        } else {
+          const deleteUser = await User.deleteOne({ _id: id })
+          const removeUserOrders = await Order.deleteMany({
+            _id: { $in: userToRemove.ordersList },
+          })
+
+          return userToRemove
+        }
+      } else {
+        throw new Error("you are not admin")
+      }
+    } else {
+      throw new Error("please log in ")
     }
   }),
 }
