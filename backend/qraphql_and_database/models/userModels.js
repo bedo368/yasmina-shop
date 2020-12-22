@@ -6,6 +6,7 @@ const userSchame = mongoose.Schema(
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
+    isOwner: { type: Boolean, required: true, default: false },
     ordersList : [{
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",

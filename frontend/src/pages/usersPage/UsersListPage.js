@@ -19,7 +19,9 @@ const UsersListPage = ({ history }) => {
   const { userInfo } = useSelector((state) => state.userReducer)
 
   const deleteHandler = (userId) => {
-    dispatch(removeUserFromUsersList(userId))
+    if (window.confirm("are you sure")) {
+      dispatch(removeUserFromUsersList(userId))
+    }
   }
   useEffect(() => {
     if (!userInfo) {
@@ -42,11 +44,13 @@ const UsersListPage = ({ history }) => {
         <Message variant="danger">{usersListErrorMessage}</Message>
       ) : (
         <Table striped bordered hover responsive className="table-sm">
+        
           <thead>
             <th>ID</th>
             <th>name</th>
             <th>email</th>
             <th>Admin</th>
+            <th>Owner</th>
             <th></th>
           </thead>
           <tbody>
@@ -66,10 +70,18 @@ const UsersListPage = ({ history }) => {
                   )}
                 </td>
                 <td>
+                  {" "}
+                  {user.isOwner ? (
+                    <i className="fas fa-check" style={{ color: "green" }}></i>
+                  ) : (
+                    <i className="fas fa-times" style={{ color: "red" }}></i>
+                  )}
+                </td>
+                <td>
                   <Button
                     className="btn-sm"
                     onClick={() => {
-                      history.push(`/admin/${user._id}/edit`)
+                      history.push(`/admin/user/${user._id}/edit`)
                     }}
                   >
                     <i className="fas fa-edit mx-1"></i>

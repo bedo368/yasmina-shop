@@ -2,11 +2,12 @@ import userTypes from "./userTypes"
 
 const userInfo = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
-  : null
+  : {token:null}
 const INTIAL_STATE = {
   userInfo: userInfo,
   fetchState: false,
   errorMassage: "",
+  
 }
 
 const userReducer = (state = INTIAL_STATE, action) => {

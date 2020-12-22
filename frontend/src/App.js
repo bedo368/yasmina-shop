@@ -15,7 +15,16 @@ import PlaceOrderPage from "./pages/PlaceOrderPage/PlaceOrderPage"
 import OrderPage from "./pages/order/OrderPage"
 import UsersListPage from "./pages/usersPage/UsersListPage"
 import UserOrderPage from "./pages/userOrderPage/UserOrderPage"
+import UserProfileForAdmin from "./pages/adminAccessUserProfile/UserProfileForAdmin"
+import ProductsListPage from "./pages/productListPage/ProductListPage"
+import { useDispatch } from "react-redux"
+import { checkForToken } from "./redux/user/userAction"
+import CreateProduct from "./pages/CreateProduct/createProduct"
 function App({}) {
+  const dispatch = useDispatch()
+  console.log("ss")
+  dispatch(checkForToken())
+
   return (
     <Router>
       <Header />
@@ -33,11 +42,17 @@ function App({}) {
           <Route path="/placeorder" component={PlaceOrderPage} />
           <Route path="/order/:id" component={OrderPage} />
           <Route path="/admin/userlist" component={UsersListPage} />
+          <Route path="/admin/productslist" component={ProductsListPage} />
+          <Route
+            path="/admin/user/:userid/edit"
+            component={UserProfileForAdmin}
+          />
+          <Route path="/create/product" component={CreateProduct} />
         </Container>
       </main>
 
       <Footer />
-    </Router>
+    </Router> 
   )
 }
 

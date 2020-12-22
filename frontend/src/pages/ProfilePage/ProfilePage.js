@@ -65,17 +65,7 @@ const ProfilePage = ({ location, history }) => {
       {editProfile ? (
         <Row>
           <Col md={6}>
-            <Button
-              variant="info"
-              className="mt-2"
-              type="button"
-              onClick={() => {
-                history.push("/user/orders")
-              }}
-            >
-              {" "}
-              My Orders
-            </Button>
+          
             <h2> User Profile </h2>
             {userProfileErrorMessage ? (
               <Message variant="danger">{userProfileErrorMessage} </Message>
@@ -134,17 +124,7 @@ const ProfilePage = ({ location, history }) => {
       ) : (
         <Row>
           <Col md={6} className="pt-5">
-            <Button
-              variant="info"
-              className="mt-2"
-              type="button"
-              onClick={() => {
-                history.push("/user/orders")
-              }}
-            >
-              {" "}
-              My Orders
-            </Button>
+           
             <h2> User Profile </h2>
             {userProfileErrorMessage ? (
               <Message variant="danger">{userProfileErrorMessage} </Message>

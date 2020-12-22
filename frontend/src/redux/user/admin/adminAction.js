@@ -14,6 +14,7 @@ export const getUsersForAdmin = () => async (dispatch, getState) => {
                   name
                   email
                   isAdmin
+                  isOwner
               }
           }
         `
@@ -96,15 +97,19 @@ export const getUserProfileForAdmin = (id) => async (dispatch, getState) => {
                   _id
                   name
                   email
-                  ordersList
+                  isAdmin
+                  ordersList{
+                    _id
+                  }
               }
           }
         `
+
     const { data } = await Axios.post(
       "/graphql",
       {
         query,
-        variables: { id },
+        variables: { id: id },
       },
       {
         headers: {
@@ -119,6 +124,60 @@ export const getUserProfileForAdmin = (id) => async (dispatch, getState) => {
     })
   } catch (error) {
     console.log(error)
+    const errorMessage = error?.response?.data.errors
+      ? error?.response?.data?.errors[0].message
+      : error?.response?.data
+    dispatch({
+      type: adminTypes.GET_USER_PROFILE_FAIL_FOR_ADMIN,
+      payload: errorMessage,
+    })
+  }
+}
+
+export const updateUserProfileForAdmin = ({
+  id,
+  adminPassword,
+  isAdmin,
+  name,
+  email,
+}) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: adminTypes.UPDATE_PROFILE_START_FOR_ADMIN,
+    })
+    const token = getState().userReducer.userInfo.token
+    const query = `
+          query updateUserProfileForAdmin($id:String! , $name:String , $email:String , $adminPassword:String! , $isAdmin: Boolean! ){
+            updateUserProfileForAdmin(id :$id name:$name , email:$email , adminPassword:$adminPassword , isAdmin: $isAdmin){
+                  _id
+                  name
+                  email
+                  isAdmin
+                  ordersList{
+                    _id
+                  }
+              }
+          }
+        `
+
+    const { data } = await Axios.post(
+      "/graphql",
+      {
+        query,
+        variables: { id, adminPassword, isAdmin, name, email },
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    dispatch({
+      type: adminTypes.UPDATE_PROFILE_SUCCESS_FOR_ADMIN,
+      payload: data.data.updateUserProfileForAdmin,
+    })
+  } catch (error) {
     const errorMessage = error?.response?.data.errors
       ? error?.response?.data?.errors[0].message
       : error?.response?.data

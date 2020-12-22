@@ -27,6 +27,7 @@ export const authMiddleWare = (req, res, next) => {
   if (decodedToken) {
     req.isAuth = true
     req.userId = decodedToken._id
+    req.currentUser = decodedToken.user
     return next()
   }
   return next()

@@ -1,18 +1,41 @@
-import productTypes from "./productsTypes"
+import productsTypes from "./productsTypes";
+import productTypes from "./productsTypes";
 
-const INTIAL_STATE = { products : null , loading: false, errMessage: "" }
+const INTIAL_STATE = { products: null, loading: false, errMessage: "" };
 
 const productReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case productTypes.FETCH_PRODUCTS_START:
-      return { ...state, loading: true }
+      return { ...state, loading: true };
     case productTypes.FETCH_PRODUCTS_SUCCESS:
-      return { ...state, loading: false, products: action.payload, errMessage: null }
+      return {
+        ...state,
+        loading: false,
+        products: action.payload,
+        errMessage: null,
+      };
 
     case productTypes.FETCH_PRODUCTS_FAIL:
-      return { ...state, loading: false, errMessage: action.payload }
+      return {
+        ...state,
+        loading: false,
+        errMessage: action.payload,
+        products: [],
+      };
+    // remove product
+    case productsTypes.REMOVE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        products: state.products.filter((p) => p._id !== action.payload._id),
+        removeProductError: null,
+      };
+    case productsTypes.REMOVE_PRODUCT_FAIL:
+      return {
+        ...state,
+        removeProductError: action.payload,
+      };
     default:
-      return state
+      return state;
   }
-}
-export default productReducer
+};
+export default productReducer;

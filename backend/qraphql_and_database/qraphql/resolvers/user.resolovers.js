@@ -9,13 +9,7 @@ const userQuery = {
     } else {
       try {
         const user = await User.findById(req.userId)
-        return {
-          _id: user._doc._id,
-          name: user._doc.name,
-          email: user._doc.email,
-          password: null,
-          isAdmin: user._doc.isAdmin,
-        }
+        return user
       } catch (error) {
         throw new Error("user is not exist")
       }
@@ -46,7 +40,7 @@ const userQuery = {
       const isAdmin = await User.findById(req.userId)
       if (isAdmin.isAdmin) {
         const fetchedUser = await User.findById(id)
-        return fetchedUser
+        return { ...fetchedUser._doc, token: null }
       } else {
         throw new Error("you are not admin")
       }
@@ -76,13 +70,7 @@ const userMutation = {
       }
       const upadtedUser = await user.save()
       if (upadtedUser) {
-        return {
-          _id: upadtedUser._doc._id,
-          name: upadtedUser._doc.name,
-          email: upadtedUser._doc.email,
-          password: null,
-          isAdmin: upadtedUser._doc.isAdmin,
-        }
+        return upadtedUser
       }
 
       throw new Error("user did't update please try agien ")
@@ -91,11 +79,11 @@ const userMutation = {
   // remove user for admin only
   removeUserById: asyncHandler(async ({ id }, req) => {
     if (req.isAuth) {
-      const isAdmin = await User.findById(req.userId)
-      if (isAdmin.isAdmin) {
+      const isOwner = await User.findById(req.userId)
+      if (isOwner.isOwner) {
         const userToRemove = await User.findById({ _id: id })
-        if (userToRemove.isAdmin) {
-          throw new Error("you cant't delete admin")
+        if (userToRemove.isOwner) {
+          throw new Error("you cant't delete owner")
         } else {
           const deleteUser = await User.deleteOne({ _id: id })
           const removeUserOrders = await Order.deleteMany({
@@ -111,6 +99,42 @@ const userMutation = {
       throw new Error("please log in ")
     }
   }),
+
+  // update user profile for admin
+  updateUserProfileForAdmin: asyncHandler(
+    async ({ id, name, email, adminPassword, isAdmin }, req) => {
+      if (!req.isAuth) {
+        throw new Error("not auth")
+      } else {
+        const isUserOwner = await User.findById(req.userId)
+        if (isUserOwner.isOwner) {
+          const adminMatchedPassword = await isUserOwner.matchPassword(adminPassword)
+
+          if (adminMatchedPassword) {
+            const user = await User.findById(id)
+            if (user) {
+              user.name = name || user.name
+              user.email = email || user.email
+              if (user.isOwner) {
+                user.isAdmin = true
+              } else {
+                user.isAdmin = isAdmin
+              }
+
+            }
+            const upadtedUser = await user.save()
+            if (upadtedUser) {
+              return upadtedUser
+            }
+          } else {
+            throw new Error("your passord is incorrect")
+          }
+        }
+
+        throw new Error("user did't update please try agien ")
+      }
+    }
+  ),
 }
 
 const userResolovers = {

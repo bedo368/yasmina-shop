@@ -20,15 +20,33 @@ const adminReducer = (state = intial_state, action) => {
     case adminTypes.REMOVE_USER_FAIL:
       return { ...state, deleteUserErrorMessage: action.payload }
 
-
-      // get user for admin from database 
+    // get user for admin from database
     case adminTypes.GET_USER_PROFILE_START_FOR_ADMIN:
       return { ...intial_state }
 
     case adminTypes.GET_USER_PROFILE_SUCCESS_FOR_ADMIN:
-      return { getUserFetchState: false, UserForAdmin: action.payload }
+      return {
+        ...intial_state,
+        getUserFetchState: false,
+        UserForAdmin: action.payload,
+      }
     case adminTypes.GET_USER_PROFILE_FAIL_FOR_ADMIN:
-      return { UserForAdminError: action.payload, getUserFetchState: false }
+      return {
+        ...intial_state,
+        UserForAdminError: action.payload,
+        getUserFetchState: false,
+      }
+    case adminTypes.UPDATE_PROFILE_START_FOR_ADMIN:
+      return { ...intial_state, updateUserState: true }
+
+    case adminTypes.UPDATE_PROFILE_SUCCESS_FOR_ADMIN:
+      return {
+        ...intial_state,
+        getUserFetchState: false,
+        UserForAdmin: action.payload,
+        updateUserSuccess: true,
+        updateUserState: false,
+      }
 
     case adminTypes.REST_ADMIN:
       return intial_state

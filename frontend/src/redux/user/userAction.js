@@ -81,3 +81,35 @@ export const register = (name, email, password) => async (dispatch, getState) =>
 
 
 
+export const checkForToken = () => async (dispatch , getState) => {
+  console.log("ff");
+  const token = getState().userReducer.userInfo?.token 
+    Axios({
+      method: "POST",
+      url: "/checktoken",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }).then((data)=>{
+      console.log("success");
+      dispatch({
+        type: userTypes.USER_REGISTER_SUCCESS,
+        payload: data.data,
+      })
+    }).catch((error)=>{
+      const errorMessage = error.response.data.message
+      ? error.response.data.message
+      : "error happend"
+    dispatch({
+      type: userTypes.LOGOUT,
+    })
+    localStorage.setItem("userInfo", null)
+
+    })
+
+  
+    
+
+}
+

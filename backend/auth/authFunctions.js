@@ -4,7 +4,7 @@ import { genrateToken } from "../utiles/generateToken.js"
 
 export const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body
-  const user = await User.findOne({ email : email.toLowerCase() })
+  const user = await User.findOne({ email: email.toLowerCase() })
   if (user) {
     if (await user.matchPassword(password)) {
       res.json({
@@ -12,7 +12,12 @@ export const userLogin = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: genrateToken(user._id),
+        token: genrateToken(user._id, {
+          email: user._doc.email,
+          name: user._doc.name,
+          isAdmin: user._doc.isAdmin,
+          _id: user._doc._id,
+        }),
       })
     } else if (!(await user.matchPassword(password))) {
       res.status(401)
@@ -25,7 +30,7 @@ export const userLogin = asyncHandler(async (req, res) => {
 
 export const userRegister = asyncHandler(async (req, res) => {
   const { email, password, name } = req.body
-  const userExist = await User.findOne({  email: email.toLowerCase() })
+  const userExist = await User.findOne({ email: email.toLowerCase() })
 
   if (userExist) {
     res.status(401)
@@ -34,7 +39,7 @@ export const userRegister = asyncHandler(async (req, res) => {
   try {
     const user = await User.create({
       name,
-      email : email.toLowerCase(),
+      email: email.toLowerCase(),
       password,
     })
 
@@ -44,7 +49,7 @@ export const userRegister = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
-        token: genrateToken(user._id),
+        token: genrateToken(user._id, { ...user._doc, password: null }),
       })
     } else {
       res.status(404)
@@ -53,4 +58,29 @@ export const userRegister = asyncHandler(async (req, res) => {
   } catch (error) {
     throw new Error(error)
   }
+})
+
+
+export const checkToken = asyncHandler(async (req, res) => {
+
+  if (req.isAuth){
+    const sendNewToken = await User.findById(req.userId)
+    if(sendNewToken){
+      res.status(201).json({
+        _id: sendNewToken._id,
+        name: sendNewToken.name,
+        email: sendNewToken.email,
+        isAdmin: sendNewToken.isAdmin,
+        token: genrateToken(sendNewToken._id, { ...sendNewToken._doc, password: null }),
+  
+      })
+  
+    }else{
+
+      console.log("error");
+      throw new Error("user is not exist" ) 
+    }
+    
+  }
+
 })

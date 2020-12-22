@@ -22,7 +22,7 @@ const ProductPage = ({ match, history }) => {
     if (products !== null) {
       setProduct(products.find((p) => p._id === match.params.id))
     }
-  }, [])
+  }, [dispatch])
   useEffect(() => {
     if (products === null) {
       setProduct(productFromRedux.product)
@@ -80,7 +80,7 @@ const ProductPage = ({ match, history }) => {
                 </Row>
               </ListGroup.Item>
             </Card>
-            {product.countInStock > 0 && (
+            {product?.countInStock > 0 && (
               <ListGroup.Item>
                 <Row>
                   <Col>Qty</Col>
@@ -92,7 +92,7 @@ const ProductPage = ({ match, history }) => {
                         setQty(e.target.value)
                       }}
                     >
-                      {[...Array(product.countInStock).keys()].map((x) => (
+                      {[...Array(product?.countInStock).keys()].map((x) => (
                         <option key={x + 1} value={x + 1}>
                           {x + 1}
                         </option>
