@@ -93,7 +93,7 @@ const userMutation = {
           return userToRemove
         }
       } else {
-        throw new Error("you are not admin")
+        throw new Error("only owner can remove users")
       }
     } else {
       throw new Error("please log in ")

@@ -20,6 +20,7 @@ import ProductsListPage from "./pages/productListPage/ProductListPage"
 import { useDispatch } from "react-redux"
 import { checkForToken } from "./redux/user/userAction"
 import CreateProduct from "./pages/CreateProduct/createProduct"
+import AdminProductList from "./pages/AdminProductList/AdminProductList"
 function App({}) {
   const dispatch = useDispatch()
   console.log("ss")
@@ -42,7 +43,8 @@ function App({}) {
           <Route path="/placeorder" component={PlaceOrderPage} />
           <Route path="/order/:id" component={OrderPage} />
           <Route path="/admin/userlist" component={UsersListPage} />
-          <Route path="/admin/productslist" component={ProductsListPage} />
+          <Route path="/owner/productslist" component={ProductsListPage} />
+          <Route path="/admin/productslist" component={AdminProductList} />
           <Route
             path="/admin/user/:userid/edit"
             component={UserProfileForAdmin}

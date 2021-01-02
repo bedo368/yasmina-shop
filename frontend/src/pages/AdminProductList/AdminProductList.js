@@ -7,9 +7,10 @@ import Message from "../../components/message/Message"
 import {
     fetchProductsAscync,
     removeProductById,
+    fetchAdminProducts
 } from "../../redux/products/productsAction"
 
-const ProductsListPage = ({ history }) => {
+const AdminProductList = ({ history }) => {
     const dispatch = useDispatch()
 
     const { userInfo } = useSelector((state) => state.userReducer)
@@ -27,7 +28,7 @@ const ProductsListPage = ({ history }) => {
     }
     useEffect(() => {
         if (userInfo && userInfo.isAdmin) {
-            dispatch(fetchProductsAscync())
+            dispatch(fetchAdminProducts())
         } else {
             history.push("/login")
         }
@@ -103,4 +104,4 @@ const ProductsListPage = ({ history }) => {
     )
 }
 
-export default ProductsListPage
+export default AdminProductList

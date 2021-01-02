@@ -47,8 +47,11 @@ const Header = () => {
                   <LinkContainer to="/admin/userlist">
                     <NavDropdown.Item>Users list</NavDropdown.Item>
                   </LinkContainer>
+                  {userInfo?.isOwner && <LinkContainer to="/owner/productslist">
+                    <NavDropdown.Item> all Products List</NavDropdown.Item>
+                  </LinkContainer>}
                   <LinkContainer to="/admin/productslist">
-                    <NavDropdown.Item>Products List</NavDropdown.Item>
+                    <NavDropdown.Item>My Products List</NavDropdown.Item>
                   </LinkContainer>
                   <LinkContainer to="/admin/orderlist">
                     <NavDropdown.Item>Order List</NavDropdown.Item>

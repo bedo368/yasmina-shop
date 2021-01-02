@@ -12,11 +12,13 @@ export const userLogin = asyncHandler(async (req, res) => {
         name: user.name,
         email: user.email,
         isAdmin: user.isAdmin,
+        isOwner: user._doc.isOwner,
         token: genrateToken(user._id, {
           email: user._doc.email,
           name: user._doc.name,
           isAdmin: user._doc.isAdmin,
           _id: user._doc._id,
+          isOwner: user._doc.isOwner,
         }),
       })
     } else if (!(await user.matchPassword(password))) {
@@ -60,27 +62,24 @@ export const userRegister = asyncHandler(async (req, res) => {
   }
 })
 
-
 export const checkToken = asyncHandler(async (req, res) => {
-
-  if (req.isAuth){
+  if (req.isAuth) {
     const sendNewToken = await User.findById(req.userId)
-    if(sendNewToken){
+    if (sendNewToken) {
       res.status(201).json({
         _id: sendNewToken._id,
         name: sendNewToken.name,
         email: sendNewToken.email,
         isAdmin: sendNewToken.isAdmin,
-        token: genrateToken(sendNewToken._id, { ...sendNewToken._doc, password: null }),
-  
+        token: genrateToken(sendNewToken._id, {
+          ...sendNewToken._doc,
+          password: null,
+        }),
+        isOwner: sendNewToken.isOwner,
       })
-  
-    }else{
-
-      console.log("error");
-      throw new Error("user is not exist" ) 
+    } else {
+      console.log("error")
+      throw new Error("user is not exist")
     }
-    
   }
-
 })

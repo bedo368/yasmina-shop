@@ -68,14 +68,15 @@ export default buildSchema(`
 
 
     type rootQuery{ 
-        getUserProfile : User
+        getUserProfile : User!
         getAllProducts : [Product]!
-        getProductById(id:String): Product
+        getProductById(id:String): Product!
         getOrderById(id:String): Order!
         getAllLogedInUserOrders : [Order]!
         getAllUsersForAdmin : [User]!
         getUserByIdForAdmin (id:String!): User!
         updateUserProfileForAdmin(id:String!, name:String, email:String, adminPassword:String!, isAdmin : Boolean!): User!
+        getAdminProducts:[Product]!
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!
@@ -97,7 +98,7 @@ export default buildSchema(`
             category:String!, 
             brand:String!,
             countInStock:Float!,
-               price:Float!) : Product!
+            price:Float!) : Product!
 
             updateProduct(_id : String!,
             name :String, 
@@ -107,7 +108,7 @@ export default buildSchema(`
             brand:String, 
             countInStock:Float,
             price:Float) : Product!
-       
+    
     }
 
     schema {

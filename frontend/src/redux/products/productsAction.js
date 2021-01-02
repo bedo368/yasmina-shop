@@ -99,3 +99,48 @@ export const removeProductById = ({ id }) => async (dispatch, getState) => {
   }
 }
 
+export const fetchAdminProducts = () => {
+  return (dispatch , getState) => {
+    const token = getState().userReducer.userInfo.token
+    dispatch(fitchProductStart())
+    const query = `
+     query{
+      getAdminProducts {
+         _id
+         name
+         image
+         brand
+         price
+         rating
+         numReviews
+         category
+         description
+         countInStock
+         
+         
+       }
+     }
+     `
+    Axios({
+      method: "POST",
+      url: "/graphql",
+      data: {
+        query,
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((res) => {
+        dispatch(fitchProductSuccess(res.data.data.getAdminProducts))
+      })
+      .catch((error) => {
+        console.log(error.response)
+        const errorMessage = error.response.data.errors
+          ? error.response.data.errors[0].message
+          : error.response.data
+        dispatch(fitchProductfail(errorMessage))
+      })
+  }
+}
