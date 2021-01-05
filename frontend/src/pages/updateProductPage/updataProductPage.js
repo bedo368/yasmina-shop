@@ -2,18 +2,42 @@ import React, { useState, useEffect } from "react"
 import { Button, Col, Form, Row } from "react-bootstrap"
 import Loader from "../../components/loader/Loader"
 import { useSelector, useDispatch } from "react-redux"
-import "./createProduct.scss"
-import { createNewProduct } from "../../redux/product/productAction"
-const CreateProduct = ({ history }) => {
-  const createdProduct = useSelector((state) => state.productReducer)
+import {
+  createNewProduct,
+  fetchProductAscync,
+  updateProduct,
+} from "../../redux/product/productAction"
+
+const UpdateProduct = ({ history, match }) => {
+  const { product, loading, getState, productUpdated } = useSelector(
+    (state) => state.productReducer
+  )
+
   const dispatch = useDispatch()
-  const { createProductState, loading } = createdProduct
 
   useEffect(() => {
-    if (createProductState && !loading) {
+    if (!getState) {
+      dispatch(fetchProductAscync(match.params.id))
+    }
+
+    changeProductInfo({
+      name: product?.name,
+      price: product?.price,
+      image: product?.image,
+      brand: product?.brand,
+      description: product?.description,
+      countInStock: product?.countInStock,
+      category: product?.category,
+    })
+  }, [getState])
+
+  useEffect(() => {
+    if (productUpdated) {
       history.push(`/admin/productslist`)
     }
-  }, [createProductState, dispatch, loading])
+  }, [productUpdated])
+  
+
   const [productInfo, changeProductInfo] = useState({
     name: "",
     price: "",
@@ -44,7 +68,8 @@ const CreateProduct = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(
-      createNewProduct({
+      updateProduct({
+        _id: product._id,
         name,
         price,
         image,
@@ -94,21 +119,23 @@ const CreateProduct = ({ history }) => {
                   onChange={productInfoOnChange}
                 />
               </Form.Group>
-              <Form.Group controlId="image">
+
+              {/* <Form.Group controlId="image">
                 <Form.Label>image</Form.Label>
-                {/* <Form.Control
+                <Form.Control
                                     type="text"
                                     placeholder="Enter image"
                                     name="image"
                                     value={image}
                                     onChange={productInfoOnChange}
-                                /> */}
+                                />
                 <Form.File
                   label="chose file "
                   custom
                   onChange={uploadFileHandler}
                 ></Form.File>
-              </Form.Group>
+              </Form.Group> */}
+
               <Form.Group controlId="brand">
                 <Form.Label>brand</Form.Label>
                 <Form.Control
@@ -149,7 +176,7 @@ const CreateProduct = ({ history }) => {
                   onChange={productInfoOnChange}
                 />
               </Form.Group>
-              <Button type="submit"> Create</Button>
+              <Button type="submit"> update </Button>
             </Form>
           </Col>
         </Row>
@@ -158,4 +185,4 @@ const CreateProduct = ({ history }) => {
   )
 }
 
-export default CreateProduct
+export default UpdateProduct

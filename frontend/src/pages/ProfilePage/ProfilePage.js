@@ -57,7 +57,7 @@ const ProfilePage = ({ location, history }) => {
     const submitHandler = (event) => {
         event.preventDefault()
         dispatch(updateUserProfile(name, email, newPassword, oldPassword))
-        setUserInfo({ email: "", newPassword: "", name: "", oldPassword: "" })
+        setUserInfo(preval=>({ ...preval , newPassword: "", oldPassword: "" }))
         setEditProfile(false)
     }
     return (

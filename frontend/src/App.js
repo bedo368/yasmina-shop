@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux"
 import { checkForToken } from "./redux/user/userAction"
 import CreateProduct from "./pages/CreateProduct/createProduct"
 import AdminProductList from "./pages/AdminProductList/AdminProductList"
+import UpdateProduct from "./pages/updateProductPage/updataProductPage"
 function App({}) {
   const dispatch = useDispatch()
   console.log("ss")
@@ -45,6 +46,7 @@ function App({}) {
           <Route path="/admin/userlist" component={UsersListPage} />
           <Route path="/owner/productslist" component={ProductsListPage} />
           <Route path="/admin/productslist" component={AdminProductList} />
+          <Route path="/admin/updateproduct/:id" component={UpdateProduct} />
           <Route
             path="/admin/user/:userid/edit"
             component={UserProfileForAdmin}

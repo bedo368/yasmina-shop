@@ -16,6 +16,7 @@ const ProductPage = ({ match, history }) => {
   const [qty, setQty] = useState(1)
   const [product, setProduct] = useState({})
   useEffect(() => {
+    dispatch({type:"CLEAR_ERROR_MASSAGE"})
     if (products === null) {
       dispatch(fetchProductAscync(match.params.id))
     }
@@ -27,7 +28,7 @@ const ProductPage = ({ match, history }) => {
     if (products === null) {
       setProduct(productFromRedux.product)
     }
-  }, [productFromRedux])
+  }, [productFromRedux,productFromRedux.product])
 
   const addToCartHandeler = () => {
     if(qty!== 0){
