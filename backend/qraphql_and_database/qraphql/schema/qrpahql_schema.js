@@ -108,6 +108,8 @@ export default buildSchema(`
             brand:String, 
             countInStock:Float,
             price:Float) : Product!
+
+            removeOrder(_id: String!): Order!
     
     }
 

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Message from "../../components/message/Message"
 import Loader from "../../components/loader/Loader"
 
-import { getLogedInUserOrders } from "../../redux/order/getLogedInUserOrders/getLogedInUserOrderAction"
+import { getLogedInUserOrders ,delteOrderFromDatbase } from "../../redux/order/getLogedInUserOrders/getLogedInUserOrderAction"
 
 const UserOrderPage = ({ location, history }) => {
   const dispatch = useDispatch()
@@ -15,8 +15,11 @@ const UserOrderPage = ({ location, history }) => {
     LogedInUserErrorMessage,
   } = useSelector((state) => state.getLogedInUserOrdersReducer)
 
-  const redirect = location.search ? location.search.split("=")[1] : "/"
-
+  // const redirect = location.search ? location.search.split("=")[1] : "/"
+  const delteOrder = (id)=>{
+    dispatch(delteOrderFromDatbase(id))
+    
+  }
   const { userInfo } = useSelector((state) => state.userReducer)
 
   useEffect(() => {
@@ -73,6 +76,9 @@ const UserOrderPage = ({ location, history }) => {
                       variant="info"
                     >
                       more detail
+                    </Button>{" "}
+                    <Button onClick = {()=>{delteOrder(order._id)}} className="btn-sm" variant="danger">
+                      <i className="fas fa-trash"></i>
                     </Button>{" "}
                   </td>
                 </tr>
