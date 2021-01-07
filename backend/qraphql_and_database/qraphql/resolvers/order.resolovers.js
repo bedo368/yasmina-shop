@@ -32,6 +32,14 @@ const orderQuery = {
       throw new Error(error)
     }
   }),
+  getAllOrdersForAdmin: asyncHandler(async (args, req) => {
+    if (req.currentUser.isAdmin) {
+      const allOrders = await Order.find()
+      return allOrders
+    } else {
+      throw new Error("admin only")
+    }
+  }),
 }
 
 const orderMutation = {

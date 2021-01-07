@@ -22,6 +22,7 @@ import { checkForToken } from "./redux/user/userAction"
 import CreateProduct from "./pages/CreateProduct/createProduct"
 import AdminProductList from "./pages/AdminProductList/AdminProductList"
 import UpdateProduct from "./pages/updateProductPage/updataProductPage"
+import AdminOrdersPage from "./pages/adminOrdersPage/AdminOrdersPage"
 function App({}) {
   const dispatch = useDispatch()
   console.log("ss")
@@ -39,6 +40,7 @@ function App({}) {
           <Route path="/register" component={RegisterPage} />
           <Route path="/profile" component={ProfilePage} />
           <Route path="/user/orders" component={UserOrderPage} />
+          <Route path="/admin/orderlist" component={AdminOrdersPage} />
           <Route path="/shipping" component={ShippingPage} />
           <Route path="/payment" component={PaymentMetodPage} />
           <Route path="/placeorder" component={PlaceOrderPage} />
