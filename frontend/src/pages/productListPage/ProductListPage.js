@@ -78,7 +78,7 @@ const ProductsListPage = ({ history }) => {
                                         className="btn-sm btn-light"
                                         onClick={() => {
                                             history.push(
-                                                `/admin/product/${product._id}/edit`
+                                                `/admin/updateproduct/${product._id}/edit`
                                             )
                                         }}
                                     >
