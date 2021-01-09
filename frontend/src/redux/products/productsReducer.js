@@ -35,7 +35,6 @@ const productReducer = (state = INTIAL_STATE, action) => {
         removeProductError: null,
       }
     case "FETCH_MYADMIN_PRODUCTS":
-      console.log(action.payload)
       return {
         ...state,
         loading: false,

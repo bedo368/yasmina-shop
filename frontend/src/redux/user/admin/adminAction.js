@@ -74,7 +74,6 @@ export const removeUserFromUsersList = (id) => async (dispatch, getState) => {
       payload: data.data.removeUserById._id,
     })
   } catch (error) {
-    console.log(error)
     const errorMessage = error?.response?.data.errors
       ? error?.response?.data?.errors[0].message
       : error?.response?.data
@@ -123,7 +122,6 @@ export const getUserProfileForAdmin = (id) => async (dispatch, getState) => {
       payload: data.data.getUserByIdForAdmin,
     })
   } catch (error) {
-    console.log(error)
     const errorMessage = error?.response?.data.errors
       ? error?.response?.data?.errors[0].message
       : error?.response?.data

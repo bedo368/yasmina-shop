@@ -73,7 +73,6 @@ export const getLogedInUserOrders = () => async (dispatch, getState) => {
           },
         }
       )
-      console.log(data.data.removeOrder._id);
       dispatch({
         type:getLogedInUserOrdersTypes.REMOVR_ORDER ,
         payload: data.data.removeOrder ,

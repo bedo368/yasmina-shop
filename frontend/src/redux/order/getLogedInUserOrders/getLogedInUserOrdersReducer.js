@@ -15,7 +15,6 @@ const getLogedInUserOrdersReducer = (
         LogedInUserErrorMessage: action.payload,
       }
       case getLogedInUserOrdersTypes.REMOVR_ORDER:
-        console.log(action.payload);
         return{ ...state , ordersList : state.ordersList.filter((order) => String(order._id) !== String(action.payload._id))}
     default:
       return state

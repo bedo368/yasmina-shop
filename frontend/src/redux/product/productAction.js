@@ -19,7 +19,6 @@ const fitchProductfail = (error) => {
 }
 
 export const fetchProductAscync = (id) => {
-  console.log("gggg")
   return (dispatch) => {
     dispatch(fitchProductStart())
     const query = `
@@ -130,7 +129,6 @@ export const createNewProduct = ({
         dispatch({ type: productTypes.CLEAR_PRODUCT })
       })
       .catch((error) => {
-        console.log(error)
         const errorMessage = error.response.data.errors
           ? error.response.data.errors[0].message
           : error.response.data
@@ -211,7 +209,6 @@ export const updateProduct = ({
         
     })
     .catch((error) => {
-      console.log(error)
       const errorMessage = error.response.data.errors
         ? error.response.data.errors[0].message
         : error.response.data

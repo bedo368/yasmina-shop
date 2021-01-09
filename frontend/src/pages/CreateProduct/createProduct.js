@@ -31,7 +31,6 @@ const CreateProduct = ({ history }) => {
     formData.append("image", file)
     setimageUplad(formData)
   }
-  console.log(imageUpload)
   const {
     name,
     price,

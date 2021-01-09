@@ -56,7 +56,6 @@ export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
         dispatch(fitchProductSuccess(res.data.data.getAllProducts))
       })
       .catch((error) => {
-        console.log(error.response)
         const errorMessage = error.response.data.errors
           ? error.response.data.errors[0].message
           : error.response.data
@@ -143,7 +142,6 @@ export const fetchAdminProducts = ( pagenumber = 1) => {
       },
     })
       .then((res) => {
-        console.log(res)
         
         dispatch({
           type: "FETCH_MYADMIN_PRODUCTS",

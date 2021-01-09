@@ -10,7 +10,6 @@ const adminReducer = (state = intial_state, action) => {
     case adminTypes.GET_USER_LIST_SUCCESS:
       return { usersFetchState: false, usersList: action.payload }
     case adminTypes.GET_USER_LIST_FAIL:
-      console.log(action.payload)
       return { usersFetchState: false, usersListErrorMessage: action.payload }
     // remove user and thie orders  from database
     case "REMOVE_USER_FROM_DATA":

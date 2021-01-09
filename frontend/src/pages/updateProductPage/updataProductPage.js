@@ -55,7 +55,6 @@ const UpdateProduct = ({ history, match }) => {
     formData.append("image", file)
     setimageUplad(formData)
   }
-  console.log(imageUpload)
   const {
     name,
     price,
