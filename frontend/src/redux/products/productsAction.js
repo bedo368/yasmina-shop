@@ -1,4 +1,5 @@
 import Axios from "axios"
+import productTypes from "../product/productTypes"
 import productsTypes from "./productsTypes"
 const fitchProductStart = () => {
   return {
@@ -18,22 +19,27 @@ const fitchProductfail = (error) => {
   }
 }
 
-export const fetchProductsAscync = () => {
+export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
   return (dispatch) => {
     dispatch(fitchProductStart())
     const query = `
      query{
-       getAllProducts {
-         _id
-         name
-         image
-         brand
-         price
-         rating
-         numReviews
-         category
-         description
-         countInStock
+       getAllProducts(keyword:"${keyword}" , pageNumber:${pageNumber}) {
+       
+         products{
+          _id
+          name
+          image
+          brand
+          price
+          rating
+          numReviews
+          category
+          description
+          countInStock
+         }
+         pages
+         pageNumber
          
          
        }
@@ -99,13 +105,15 @@ export const removeProductById = ({ id }) => async (dispatch, getState) => {
   }
 }
 
-export const fetchAdminProducts = () => {
-  return (dispatch , getState) => {
+export const fetchAdminProducts = ( pagenumber = 1) => {
+  return (dispatch, getState) => {
     const token = getState().userReducer.userInfo.token
     dispatch(fitchProductStart())
+    const number = Number(pagenumber)
     const query = `
      query{
-      getAdminProducts {
+      getAdminProducts( pageNumber:${number}) {
+        products{
          _id
          name
          image
@@ -116,7 +124,9 @@ export const fetchAdminProducts = () => {
          category
          description
          countInStock
-         
+         }
+         pages
+         pageNumber
          
        }
      }
@@ -133,13 +143,17 @@ export const fetchAdminProducts = () => {
       },
     })
       .then((res) => {
-        dispatch(fitchProductSuccess(res.data.data.getAdminProducts))
+        console.log(res)
+        
+        dispatch({
+          type: "FETCH_MYADMIN_PRODUCTS",
+          payload : res.data.data.getAdminProducts,
+        })
+        
       })
       .catch((error) => {
-        console.log(error.response)
-        const errorMessage = error.response.data.errors
-          ? error.response.data.errors[0].message
-          : error.response.data
+        const errorMessage = ""
+
         dispatch(fitchProductfail(errorMessage))
       })
   }

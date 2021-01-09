@@ -65,18 +65,23 @@ export default buildSchema(`
         deliveredAt: String
 
     }
+    type ProductWithPages {
+        products : [Product]!
+        pageNumber : Int
+        pages : Int
+    }
 
 
     type rootQuery{ 
         getUserProfile : User!
-        getAllProducts : [Product]!
+        getAllProducts(keyword:String , pageNumber:Int) : ProductWithPages!
+        getAdminProducts( pageNumber: Int ): ProductWithPages!
         getProductById(id:String): Product!
         getOrderById(id:String): Order!
         getAllLogedInUserOrders : [Order]!
         getAllUsersForAdmin : [User]!
         getUserByIdForAdmin (id:String!): User!
         updateUserProfileForAdmin(id:String!, name:String, email:String, adminPassword:String!, isAdmin : Boolean!): User!
-        getAdminProducts:[Product]!
         getAllOrdersForAdmin : [Order]!
     }
     type rootMutation {

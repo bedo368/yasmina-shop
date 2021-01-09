@@ -4,10 +4,24 @@ import User from "../../models/userModels.js"
 
 const productsQuery = {
   // frtch all products resolover
-  getAllProducts: asyncHandler(async () => {
+  getAllProducts: asyncHandler(async (args, req) => {
+    const pageSize = 8
+    const pageNumber = args.pageNumber || 1
+    const keyword = args.keyword
+      ? {
+          name: {
+            $regex: args.keyword,
+            $options: "i",
+          },
+        }
+      : {}
+
     try {
-      const products = await Product.find({})
-      return products.map((p) => ({ ...p._doc }))
+      const ProductCount = await Product.countDocuments({ ...keyword })
+      const products = await Product.find({ ...keyword })
+        .limit(pageSize)
+        .skip(pageSize *( pageNumber - 1))
+      return { products, pageNumber, pages: Math.ceil(ProductCount / pageSize) }
     } catch (error) {
       throw new Error("No products")
     }
@@ -23,10 +37,21 @@ const productsQuery = {
     }
   }),
   getAdminProducts: asyncHandler(async (args, req) => {
+    const pageSize = 8
+    const pageNumber = args.pageNumber || 1
     try {
       if (req.currentUser.isAdmin) {
+        const ProductCount = await Product.countDocuments({
+          user: req.currentUser._id,
+        })
         const productsList = await Product.find({ user: req.currentUser._id })
-        return productsList
+          .limit(pageSize)
+          .skip(pageSize * ( pageNumber - 1))
+        return {
+          products: productsList,
+          pageNumber,
+          pages: Math.ceil(ProductCount / pageSize),
+        }
       } else {
         throw new Error("you are not admin")
       }

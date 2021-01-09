@@ -1,22 +1,28 @@
 import React, { useEffect } from "react"
-import { Button, Col, Row, Table } from "react-bootstrap"
+import { Button, Col, Container, Row, Table } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
+import Paginate from "../../components/paginate/paginate"
 import {
   fetchProductsAscync,
   removeProductById,
   fetchAdminProducts,
 } from "../../redux/products/productsAction"
 
-const AdminProductList = ({ history }) => {
+const AdminProductList = ({ history, match }) => {
   const dispatch = useDispatch()
 
   const { userInfo } = useSelector((state) => state.userReducer)
-  const { loading, products, errMessage, removeProductError } = useSelector(
-    (state) => state.productsReducer
-  )
+  const {
+    loading,
+    products,
+    errMessage,
+    removeProductError,
+    pages,
+    pageNumber,
+  } = useSelector((state) => state.productsReducer)
 
   const deleteHandler = (productId) => {
     if (window.confirm("are you sure")) {
@@ -26,14 +32,14 @@ const AdminProductList = ({ history }) => {
   const createProductHandler = () => {
     history.push("/create/product")
   }
-  dispatch({type:"CLEAR_PRODUCT"})
+  dispatch({ type: "CLEAR_PRODUCT" })
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
-      dispatch(fetchAdminProducts())
+      dispatch(fetchAdminProducts(match.params.pagenumber))
     } else {
       history.push("/login")
     }
-  }, [dispatch, userInfo])
+  }, [dispatch, userInfo, match.params.pagenumber])
   return (
     <>
       {removeProductError && (
@@ -99,6 +105,15 @@ const AdminProductList = ({ history }) => {
           </tbody>
         </Table>
       )}
+      <Container style={{ width: "100%", display: "flex" }}>
+        <Paginate
+          style={{ alignSelf: "center" }}
+          isAdmin={true}
+          pages={pages}
+          page={pageNumber}
+          keyword={match.params.keyword ? match.params.keyword : ""}
+        ></Paginate>
+      </Container>
     </>
   )
 }

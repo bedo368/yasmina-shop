@@ -3,7 +3,8 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../../redux/user/userAction"
-
+import SearchBox from "../searchBox/SearchBox"
+import { Route } from "react-router-dom"
 const Header = () => {
   const { userInfo } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch()
@@ -12,8 +13,14 @@ const Header = () => {
   }
 
   return (
-    <div>
-      <Navbar bg="dark" className="py-1" variant="dark" expand="lg" collapseOnSelect>
+    <div className="bg-dark">
+      <Navbar
+        bg="dark"
+        className="py-3"
+        variant="dark"
+        expand="lg"
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to="/">
             <Navbar.Brand>shop</Navbar.Brand>
@@ -35,7 +42,9 @@ const Header = () => {
                   <LinkContainer to="/user/orders">
                     <NavDropdown.Item>My orders</NavDropdown.Item>
                   </LinkContainer>
-                  <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to="/login">
@@ -43,13 +52,15 @@ const Header = () => {
                 </LinkContainer>
               )}
               {userInfo?.isAdmin && (
-                <NavDropdown title="admin" >
+                <NavDropdown title="admin">
                   <LinkContainer to="/admin/userlist">
                     <NavDropdown.Item>Users list</NavDropdown.Item>
                   </LinkContainer>
-                  {userInfo?.isOwner && <LinkContainer to="/owner/productslist">
-                    <NavDropdown.Item> all Products List</NavDropdown.Item>
-                  </LinkContainer>}
+                  {userInfo?.isOwner && (
+                    <LinkContainer to="/owner/productslist">
+                      <NavDropdown.Item> all Products List</NavDropdown.Item>
+                    </LinkContainer>
+                  )}
                   <LinkContainer to="/admin/productslist">
                     <NavDropdown.Item>My Products List</NavDropdown.Item>
                   </LinkContainer>
@@ -57,12 +68,14 @@ const Header = () => {
                     <NavDropdown.Item>Order List</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
-
               )}
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <Container >
+        <Route render={({ history }) => <SearchBox history={history} />} />
+      </Container>
     </div>
   )
 }
