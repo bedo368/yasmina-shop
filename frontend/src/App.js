@@ -1,6 +1,6 @@
 import React, { lazy, Suspense } from "react"
 
-import Footer from "./components/Footer/Footer"
+import Footer from "./components/footer/footer"
 import Header from "./components/Header/Header"
 import { Container } from "react-bootstrap"
 import { BrowserRouter as Router, Route } from "react-router-dom"

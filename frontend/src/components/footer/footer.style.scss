@@ -1,0 +1,31 @@
+.footer {
+
+
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.911);
+    h5{
+      color: #fff;
+    }
+
+ 
+  .container {
+    .btn {
+      border-radius: 20px;
+      color: black;
+      background: rgb(32, 91, 201);
+
+     
+      opacity: 0.8;
+      border: none;
+      &:hover {
+        opacity: unset;
+      }
+    }
+  }
+  
+    
+    
+  
+
+  
+}

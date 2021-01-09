@@ -16,7 +16,7 @@ const Header = () => {
     <div className="bg-dark">
       <Navbar
         bg="dark"
-        className="py-3"
+        className="pb-3 pt-1"
         variant="dark"
         expand="lg"
         collapseOnSelect
