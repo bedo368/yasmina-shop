@@ -46,3 +46,10 @@ main{
 .card{
   max-width: 370px;
 }
+
+.brand-style{
+  font-family: 'Emilys Candy', cursive;
+  text-transform: capitalize;
+  font-size: 30px;
+  
+}
