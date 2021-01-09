@@ -1,0 +1,1 @@
+{"version":3,"sources":["rating.scss"],"names":[],"mappings":"AAAA,aAEQ,YAAa,CAFrB,WAKQ,cAAgB","file":"11.28410183.chunk.css","sourcesContent":[".rating { \n    span{\n        margin: .1rem;\n    }\n    h3{\n        padding: 1rem 0 ;\n    }\n}"]}
