@@ -63,7 +63,7 @@ const orderMutation = {
         orderCreator: req.userId,
         shippingAddress: JSON.parse(shippingAddress),
         paymentMethod,
-        taxPrice,
+        taxPrice:25,
         shippingPrice,
         itemsPrice,
         totalPrice,

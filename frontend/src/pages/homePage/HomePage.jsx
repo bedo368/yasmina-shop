@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
 import Paginate from "../../components/paginate/paginate"
+import ProductCurcusal from "../../components/productCurcusal/ProductCurcusal"
 const HomePage = ({ match }) => {
   const dispatch = useDispatch()
   const { products, loading, errMessage, pages, pageNumber } = useSelector(
@@ -22,6 +23,7 @@ const HomePage = ({ match }) => {
 
   return (
     <>
+    {!match.params.keyword && <ProductCurcusal />}
       {loading ? (
         <Loader />
       ) : errMessage ? (

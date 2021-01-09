@@ -1,9 +1,17 @@
-import React from "react"
+import React , {lazy} from "react"
+
+
 import Footer from "./components/Footer/Footer"
 import Header from "./components/Header/Header"
 import { Container } from "react-bootstrap"
-import HomePage from "./pages/homePage/HomePage"
 import { BrowserRouter as Router, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { checkForToken } from "./redux/user/userAction"
+
+
+
+
+import HomePage from "./pages/homePage/HomePage"
 import ProductPage from "./pages/porductPage/ProductPage"
 import cartPage from "./pages/cartPage.jsx/cartPage"
 import LoginPage from "./pages/loginpage/LoginPage"
@@ -17,8 +25,6 @@ import UsersListPage from "./pages/usersPage/UsersListPage"
 import UserOrderPage from "./pages/userOrderPage/UserOrderPage"
 import UserProfileForAdmin from "./pages/adminAccessUserProfile/UserProfileForAdmin"
 import ProductsListPage from "./pages/productListPage/ProductListPage"
-import { useDispatch } from "react-redux"
-import { checkForToken } from "./redux/user/userAction"
 import CreateProduct from "./pages/CreateProduct/createProduct"
 import AdminProductList from "./pages/AdminProductList/AdminProductList"
 import UpdateProduct from "./pages/updateProductPage/updataProductPage"

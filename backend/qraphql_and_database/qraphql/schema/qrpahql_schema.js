@@ -83,6 +83,7 @@ export default buildSchema(`
         getUserByIdForAdmin (id:String!): User!
         updateUserProfileForAdmin(id:String!, name:String, email:String, adminPassword:String!, isAdmin : Boolean!): User!
         getAllOrdersForAdmin : [Order]!
+        getTopProduct : [Product]!
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!

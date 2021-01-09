@@ -1,7 +1,7 @@
 import Axios from "axios"
-import React, { useEffect,useState } from "react"
+import React, { useEffect, useState } from "react"
 import { PayPalButton } from "react-paypal-button-v2"
-import { Col, ListGroup, Row, Image, Card, Button } from "react-bootstrap"
+import { Col, ListGroup, Row, Image, Card, Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Loader from "../../components/loader/Loader"
@@ -23,7 +23,7 @@ const OrderPage = ({ match }) => {
     //   script.type = "text/javascript"
     //   script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
     //   script.async = true
-     
+
     //   script.onload = () => {
     //     setSdkReady(true)
     //   }
@@ -38,7 +38,7 @@ const OrderPage = ({ match }) => {
       //   setSdkReady(true)
       // }
     }
-  }, [match.params.id, dispatch, orderDetail ,loadingPay])
+  }, [match.params.id, dispatch, orderDetail, loadingPay])
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
   }
@@ -74,7 +74,9 @@ const OrderPage = ({ match }) => {
               </p>
 
               {orderDetail?.isDeliverd ? (
-                <Message variant="success">paid on {orderDetail?.deliverdAt} </Message>
+                <Message variant="success">
+                  paid on {orderDetail?.deliverdAt}{" "}
+                </Message>
               ) : (
                 <Message variant="danger">not deliverd</Message>
               )}
@@ -88,7 +90,9 @@ const OrderPage = ({ match }) => {
                 {orderDetail?.paymentMethod}
               </p>
               {orderDetail?.isPaid ? (
-                <Message variant="success">paid on {orderDetail?.paidAt} </Message>
+                <Message variant="success">
+                  paid on {orderDetail?.paidAt}{" "}
+                </Message>
               ) : (
                 <Message variant="danger">not paid</Message>
               )}
@@ -107,7 +111,10 @@ const OrderPage = ({ match }) => {
                         <Image src={item.image} fluid rounded />
                       </Col>
                       <Col>
-                        <Link to={`/product/${item.product._id}`}> {item.name} </Link>
+                        <Link to={`/product/${item.product._id}`}>
+                          {" "}
+                          {item.name}{" "}
+                        </Link>
                       </Col>
                       <Col>
                         {item.qty} x {item.price} = {item.qty * item.price}$
@@ -150,22 +157,35 @@ const OrderPage = ({ match }) => {
                 <Col>${orderDetail?.totalPrice} </Col>
               </Row>
             </ListGroup.Item>
-            {/* {!orderDetail?.isPaid && (
+            {!orderDetail?.isPaid && (
               <ListGroup>
-                { !sdkReady ? (
-                  <Loader />
-                ) : (
-                  <ListGroup.Item>
-                    
-                     <PayPalButton
-                    amount={order.totalPrice}
-                    onSuccess={successPaymentHandler}
+                <Form className="m-auto"
+                  target="paypal"
+                  action="https://www.paypal.com/cgi-bin/webscr"
+                  method="post"
+                >
+                  <input type="hidden" name="cmd" value="_s-xclick" />
+                  <input
+                    name="hosted_button_id"
+                    type="hidden"
+                    value={orderDetail?.totalPrice}
                   />
-                  </ListGroup.Item>
-                 
-                )}
+                  <input
+                    alt="PayPal - The safer, easier way to pay online!"
+                    name="submit"
+                    src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif"
+                    type="image"
+                  />
+                  <img
+                    src="https://www.paypal.com/en_US/i/scr/pixel.gif"
+                    border="0"
+                    alt=""
+                    width="1"
+                    height="1"
+                  />
+                </Form>
               </ListGroup>
-            )} */}
+            )}
           </Card>
         </Col>
       </Row>

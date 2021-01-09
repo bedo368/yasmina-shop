@@ -20,7 +20,7 @@ const productsQuery = {
       const ProductCount = await Product.countDocuments({ ...keyword })
       const products = await Product.find({ ...keyword })
         .limit(pageSize)
-        .skip(pageSize *( pageNumber - 1))
+        .skip(pageSize * (pageNumber - 1))
       return { products, pageNumber, pages: Math.ceil(ProductCount / pageSize) }
     } catch (error) {
       throw new Error("No products")
@@ -46,7 +46,7 @@ const productsQuery = {
         })
         const productsList = await Product.find({ user: req.currentUser._id })
           .limit(pageSize)
-          .skip(pageSize * ( pageNumber - 1))
+          .skip(pageSize * (pageNumber - 1))
         return {
           products: productsList,
           pageNumber,
@@ -58,6 +58,10 @@ const productsQuery = {
     } catch (error) {
       throw new Error("error happen")
     }
+  }),
+  getTopProduct: asyncHandler(async (arg, req) => {
+    const topProduct = await Product.find().limit(4)
+    return topProduct
   }),
 }
 const productsMutation = {

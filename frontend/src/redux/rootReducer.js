@@ -8,6 +8,7 @@ import userProfileReducer from "./user/userProfile/userProfileReducer"
 import orderPayReducer from "./order/orderPay/orderPayReducer"
 import getLogedInUserOrdersReducer from "./order/getLogedInUserOrders/getLogedInUserOrdersReducer"
 import adminReducer from "./user/admin/adminReducer"
+import topProductReducer from "./products/topProducts/topProductsReducer"
 const rootReducer = combineReducers({
   productsReducer: productsReducer,
   productReducer: productReducer,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   orderReducer: orderReducer,
   orderPayReducer: orderPayReducer,
   getLogedInUserOrdersReducer: getLogedInUserOrdersReducer,
-  adminReducer:adminReducer
+  adminReducer: adminReducer,
+  topProductReducer: topProductReducer,
 })
 export default rootReducer

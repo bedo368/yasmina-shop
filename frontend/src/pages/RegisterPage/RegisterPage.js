@@ -40,8 +40,8 @@ const RegisterPage = ({ location, history }) => {
     dispatch(register(name, email, password))
   }
   return (
-    <FormContainer>
-      <h1>Sign up</h1>
+    <FormContainer >
+      <h1 > Sign up</h1>
       { message ? <Message variant="danger">{message} </Message> : errorMassage && <Message variant="danger">{errorMassage} </Message>}
       {fetchState && <Loader />}
       <Form onSubmit={submitHandler}>
