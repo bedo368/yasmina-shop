@@ -30,16 +30,16 @@ const HomePage = ({ match }) => {
         <Message variant="danger"> {errMessage} </Message>
       ) : (
         <div style={{ width: "100%" }}>
-          <Row>
+          <Row style={{  display:"flex" , alignItems:"center" , justifyItems :"center"}}>
             {products?.map((product) => {
               return (
-                <Col key={product._id} sm={12} lg={3} md={6}>
+                <Col key={product._id} sm={12} lg={3} md={6}   style={{   alignSelf :"center"}}>
                   <Product product={product} />
                 </Col>
               )
             })}
           </Row>
-          <Container style={{width:"100%" , display:"flex"}}>
+          <Container style={{width:"100%" , display:"flex" , }}>
             <Paginate
               style={{  alignSelf: "center"
 }}
