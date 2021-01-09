@@ -28,7 +28,7 @@ const AdminOrdersPage = lazy(() =>
   import("./pages/adminOrdersPage/AdminOrdersPage")
 )
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"))
-const ProfilePage = lazy(() => import("./pages/shippingPage/ShippingPage"))
+const ProfilePage = lazy(() => import("./pages/ProfilePage/ProfilePage"))
 const ShippingPage = lazy(() => import("./pages/shippingPage/ShippingPage"))
 const PaymentMetodPage = lazy(() =>
   import("./pages/PaymentMetodPage/PaymentMetodPage")
