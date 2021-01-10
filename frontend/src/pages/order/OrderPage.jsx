@@ -29,15 +29,14 @@ const OrderPage = ({ match }) => {
     //   }
     //   document.body.appendChild(script)
     // }
-    if (successPay || !orderDetail) {
-      dispatch(getOrderById({ id: match.params.id }))
-    } else if (!orderDetail.isPaid) {
-      // if (!window.paypal) {
-      //   addPaypalScript()
-      // } else {
-      //   setSdkReady(true)
-      // }
-    }
+    dispatch(getOrderById({ id: match.params.id }))
+    // if (successPay || !orderDetail) {
+    //   // if (!window.paypal) {
+    //   //   addPaypalScript()
+    //   // } else {
+    //   //   setSdkReady(true)
+    //   // }
+    // }
   }, [match.params.id, dispatch, orderDetail, loadingPay])
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
@@ -159,7 +158,8 @@ const OrderPage = ({ match }) => {
             </ListGroup.Item>
             {!orderDetail?.isPaid && (
               <ListGroup>
-                <Form className="m-auto"
+                <Form
+                  className="m-auto"
                   target="paypal"
                   action="https://www.paypal.com/cgi-bin/webscr"
                   method="post"
