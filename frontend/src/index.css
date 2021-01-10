@@ -46,11 +46,17 @@ main{
 .card{
   max-width: 330px;
   min-width: 250px;
+  background-color:rgb(173, 12, 100);
+
 }
 
 .brand-style{
   font-family: 'Emilys Candy', cursive;
   text-transform: capitalize;
   font-size: 30px;
-  
+}
+
+.MY-NAME{
+  font-family: 'Emilys Candy', cursive;
+
 }

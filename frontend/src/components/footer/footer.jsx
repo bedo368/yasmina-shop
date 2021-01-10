@@ -37,8 +37,8 @@ const Footer = ({ history, ...otherprops }) => (
         </ul>
       </div>
 
-      <div className="footer-copyright text-center py-3">
-        Created by: abdullah attia{" "}
+      <div className="footer-copyright text-center py-3 MY-NAME">
+        Created by: Abdullah attia{" "}
         <a href="mailto: engbedo489@gmail.com"> massege me </a>
       </div>
     </footer>

@@ -23,26 +23,45 @@ const HomePage = ({ match }) => {
 
   return (
     <>
-    {!match.params.keyword && <ProductCurcusal />}
+      {!match.params.keyword && <ProductCurcusal />}
       {loading ? (
         ""
       ) : errMessage ? (
         <Message variant="danger"> {errMessage} </Message>
       ) : (
         <div style={{ width: "100%" }}>
-          <Row style={{  display:"flex" , alignItems:"center" , justifyItems :"center"}}>
+          <Row
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyItems: "center",
+              width: "100%",
+            }}
+          >
             {products?.map((product) => {
               return (
-                <Col key={product._id} sm={12} lg={3} md={6}   style={{   alignSelf :"center"}}>
+                <Col
+                  key={product._id}
+                  sm={12}
+                  lg={3}
+                  md={6}
+                  style={{ alignSelf: "center" }}
+                >
                   <Product product={product} />
                 </Col>
               )
             })}
           </Row>
-          <Container style={{width:"100%" , display:"flex" , }}>
+          <Container
+            style={{
+              width: "100%",
+              display: "flex",
+              alignItems: "center",
+              justifyItems: "center",
+            }}
+          >
             <Paginate
-              style={{  alignSelf: "center"
-}}
+              style={{ alignSelf: "center" }}
               pages={pages}
               page={pageNumber}
               keyword={match.params.keyword ? match.params.keyword : ""}
