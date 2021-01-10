@@ -7,7 +7,7 @@ const product = ({ product, Home }) => {
   return (
     <Card
       className="my-3 p-3 rounded  mx-auto "
-      style={Home && { backgroundColor:"rgb(173, 12, 100)", color: "white" }}
+      style={Home && { backgroundColor:"rgb(173, 12, 100)", color: "white" , display:"flex" }}
     >
       <Link to={`/product/${product?._id}`}>
         <Card.Img
@@ -18,7 +18,7 @@ const product = ({ product, Home }) => {
       </Link>
       <Card.Body>
         <Link to={`/product/${product?._id}`}>
-          <Card.Title as="div" className="mx-auto" style={{ color: "white" }}>
+          <Card.Title as="div" className="mx-auto" style={{ color: "white" , alignSelf: "flex-end" }}>
             {" "}
             {product?.name}{" "}
           </Card.Title>

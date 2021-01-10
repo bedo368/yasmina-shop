@@ -1,7 +1,7 @@
 import userProfilTypes from "./userProfileTypes"
 const INTIAL_STATE = {
   getUserProlieFetchState: false,
-  userProfileInfo: {},
+  userProfileInfo: null,
   userProfileErrorMessage: "",
 }
 
