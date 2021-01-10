@@ -47,7 +47,7 @@ const HomePage = ({ match }) => {
                   md={6}
                   style={{ alignSelf: "center" }}
                 >
-                  <Product product={product} />
+                  <Product product={product} Home={true} />
                 </Col>
               )
             })}
