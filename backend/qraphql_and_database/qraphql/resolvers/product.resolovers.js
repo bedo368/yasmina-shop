@@ -60,7 +60,7 @@ const productsQuery = {
     }
   }),
   getTopProduct: asyncHandler(async (arg, req) => {
-    const topProduct = await Product.find().limit(4)
+    const topProduct = await (await Product.find({top:true}).limit(4)).reverse()
     return topProduct
   }),
 }
@@ -102,6 +102,7 @@ const productsMutation = {
           brand,
           countInStock,
           price,
+          top
         } = args
         const newProduct = new Product({
           name,
@@ -111,6 +112,7 @@ const productsMutation = {
           brand,
           countInStock,
           price,
+          top,
           user: req.currentUser._id,
         })
         const savedNewProduct = await newProduct.save()
@@ -133,6 +135,7 @@ const productsMutation = {
       brand,
       countInStock,
       price,
+      top
     } = args
     if (req.isAuth) {
       const isAdminUser = await User.findById(req.currentUser._id)
@@ -144,6 +147,8 @@ const productsMutation = {
           productToEdit.image = image || productToEdit.image
           productToEdit.brand = brand || productToEdit.brand
           productToEdit.category = category || productToEdit.category
+          productToEdit.top = top || productToEdit.top
+          
           productToEdit.countInStock =
             countInStock || productToEdit.countInStock
           productToEdit.price = price || productToEdit.price

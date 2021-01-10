@@ -10,7 +10,7 @@ const PaymentMethodPage = ({ history }) => {
     history.push("/shipping")
   }
   const dispatch = useDispatch()
-  const [paymentMethod, setPaymentMethod] = useState("onDel")
+  const [paymentMethod, setPaymentMethod] = useState("دفع عند الاستلام")
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(savePaymentMethod(paymentMethod))
@@ -36,7 +36,7 @@ const PaymentMethodPage = ({ history }) => {
               type="radio"
               label="on delevary"
               name="paymentMethod"
-              value="onDel"
+              value="دفع عند الاستلام"
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
 

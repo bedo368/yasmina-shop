@@ -29,6 +29,7 @@ const UpdateProduct = ({ history, match }) => {
       countInStock: product?.countInStock,
       category: product?.category,
     })
+    setTop(product?.top)
   }, [getState])
 
   useEffect(() => {
@@ -76,6 +77,7 @@ const UpdateProduct = ({ history, match }) => {
         countInStock,
         category,
         imageUpload,
+        top
       })
     )
   }
@@ -88,6 +90,7 @@ const UpdateProduct = ({ history, match }) => {
       }
     })
   }
+  const [top , setTop]= useState(false)
 
   return (
     <div className="create-product">
@@ -115,6 +118,17 @@ const UpdateProduct = ({ history, match }) => {
                   name="price"
                   value={price}
                   onChange={productInfoOnChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Check
+                  type="checkbox"
+                  label="Top"
+                  name="top"
+                  checked={top}
+                  onChange={(e) => {
+                    setTop(e.target.checked)
+                  }}
                 />
               </Form.Group>
 

@@ -13,6 +13,7 @@ export default buildSchema(`
         countInStock: Int!
         rating:Float!
         numReviews: Int! 
+        top:Int
         
     } 
     type OrderItem {
@@ -107,7 +108,8 @@ export default buildSchema(`
             category:String!, 
             brand:String!,
             countInStock:Float!,
-            price:Float!) : Product!
+            price:Float!,
+            top:Boolean) : Product!
 
             updateProduct(_id : String!,
             name :String, 
@@ -116,7 +118,8 @@ export default buildSchema(`
             category:String, 
             brand:String, 
             countInStock:Float,
-            price:Float) : Product!
+            price:Float,
+            top: Boolean) : Product!
 
             removeOrder(_id: String!): Order!
     

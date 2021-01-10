@@ -52,6 +52,7 @@ const CreateProduct = ({ history }) => {
         countInStock,
         category,
         imageUpload,
+        top
       })
     )
   }
@@ -64,7 +65,7 @@ const CreateProduct = ({ history }) => {
       }
     })
   }
-
+const [top , setTop]= useState(false)
   return (
     <div className="create-product">
       {loading && <Loader />}
@@ -91,6 +92,17 @@ const CreateProduct = ({ history }) => {
                   name="price"
                   value={price}
                   onChange={productInfoOnChange}
+                />
+                
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Check
+                  type="checkbox"
+                  label="Top"
+                  name="top"
+                  onChange={(e) => {
+                    setTop(e.target.checked)
+                  }}
                 />
               </Form.Group>
               <Form.Group controlId="image">

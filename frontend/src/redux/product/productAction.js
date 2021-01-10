@@ -34,6 +34,7 @@ export const fetchProductAscync = (id) => {
          category
          description
          countInStock
+         top
          
          
        }
@@ -69,6 +70,7 @@ export const createNewProduct = ({
   description,
   countInStock,
   imageUpload,
+  top,
 }) => async (dispatch, getState) => {
   const token = getState().userReducer.userInfo.token
   const config = {
@@ -83,8 +85,8 @@ export const createNewProduct = ({
   dispatch({ type: productTypes.FETCH_PRODUCT_START })
 
   const query = `
-  mutation createProduct($name :String!, $description:String!,$image:String!,$category:String!, $brand:String!,$countInStock:Float!,   $price:Float!) {
-    createProduct( name :$name,  description:$description, image:$image ,category:$category,  brand:$brand, countInStock:$countInStock,    price:$price) {
+  mutation createProduct($name :String!, $description:String!,$image:String!,$category:String!, $brand:String!,$countInStock:Float!,   $price:Float! , $top:Boolean) {
+    createProduct( name :$name,  description:$description, image:$image ,category:$category,  brand:$brand, countInStock:$countInStock,    price:$price , top :$top) {
       _id
       name
       image
@@ -95,6 +97,7 @@ export const createNewProduct = ({
       category
       description
       countInStock
+      
     }
   }
   `
@@ -111,6 +114,7 @@ export const createNewProduct = ({
           category,
           description,
           countInStock: Number(countInStock),
+          top,
         },
       },
       url: "/graphql",
@@ -148,6 +152,7 @@ export const updateProduct = ({
   description,
   countInStock,
   imageUpload,
+  top,
 }) => async (dispatch, getState) => {
   const token = getState().userReducer.userInfo.token
   const config = {
@@ -161,10 +166,9 @@ export const updateProduct = ({
 
   dispatch({ type: productTypes.FETCH_PRODUCT_START })
 
-
   const query = `
-  mutation updateProduct($name :String, $description:String,$image:String,$category:String, $brand:String,$countInStock:Float,   $price:Float , $_id:String!) {
-    updateProduct( _id:$_id ,name :$name,  description:$description, image:$image ,category:$category,  brand:$brand, countInStock:$countInStock,    price:$price) {
+  mutation updateProduct($name :String, $description:String,$image:String,$category:String, $brand:String,$countInStock:Float,   $price:Float , $_id:String! $top:Boolean) {
+    updateProduct( _id:$_id ,name :$name,  description:$description, image:$image ,category:$category,  brand:$brand, countInStock:$countInStock,    price:$price top:$top) {
       _id
       name
       image
@@ -190,7 +194,8 @@ export const updateProduct = ({
         category,
         description,
         countInStock: Number(countInStock),
-        image
+        image,
+        top,
       },
     },
     url: "/graphql",
@@ -200,14 +205,13 @@ export const updateProduct = ({
     },
   })
     .then((res) => {
-        dispatch({
-            type : productTypes.CLEAR_PRODUCT,
-        })
-        dispatch({
-          type : productTypes.UPDATE_PRODUCT,
-          action: res.data.data.updateProduct
+      dispatch({
+        type: productTypes.CLEAR_PRODUCT,
       })
-        
+      dispatch({
+        type: productTypes.UPDATE_PRODUCT,
+        action: res.data.data.updateProduct,
+      })
     })
     .catch((error) => {
       const errorMessage = error.response.data.errors

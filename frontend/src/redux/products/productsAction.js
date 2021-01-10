@@ -37,6 +37,7 @@ export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
           category
           description
           countInStock
+          top
          }
          pages
          pageNumber
@@ -123,6 +124,7 @@ export const fetchAdminProducts = ( pagenumber = 1) => {
          category
          description
          countInStock
+         top
          }
          pages
          pageNumber
