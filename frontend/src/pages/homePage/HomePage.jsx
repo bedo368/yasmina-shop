@@ -25,7 +25,7 @@ const HomePage = ({ match }) => {
     <>
     {!match.params.keyword && <ProductCurcusal />}
       {loading ? (
-        <Loader />
+        ""
       ) : errMessage ? (
         <Message variant="danger"> {errMessage} </Message>
       ) : (

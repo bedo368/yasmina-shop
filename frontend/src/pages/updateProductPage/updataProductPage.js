@@ -36,7 +36,6 @@ const UpdateProduct = ({ history, match }) => {
       history.push(`/admin/productslist`)
     }
   }, [productUpdated])
-  
 
   const [productInfo, changeProductInfo] = useState({
     name: "",
@@ -119,21 +118,21 @@ const UpdateProduct = ({ history, match }) => {
                 />
               </Form.Group>
 
-              {/* <Form.Group controlId="image">
+              <Form.Group controlId="image">
                 <Form.Label>image</Form.Label>
                 <Form.Control
-                                    type="text"
-                                    placeholder="Enter image"
-                                    name="image"
-                                    value={image}
-                                    onChange={productInfoOnChange}
-                                />
+                  type="text"
+                  placeholder="Enter image"
+                  name="image"
+                  value={image}
+                  onChange={productInfoOnChange}
+                />
                 <Form.File
                   label="chose file "
                   custom
-                  onChange={uploadFileHandler}
+                  // onChange={uploadFileHandler}
                 ></Form.File>
-              </Form.Group> */}
+              </Form.Group>
 
               <Form.Group controlId="brand">
                 <Form.Label>brand</Form.Label>

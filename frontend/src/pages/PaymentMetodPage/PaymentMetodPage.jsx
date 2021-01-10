@@ -10,7 +10,7 @@ const PaymentMethodPage = ({ history }) => {
     history.push("/shipping")
   }
   const dispatch = useDispatch()
-  const [paymentMethod, setPaymentMethod] = useState("paypal")
+  const [paymentMethod, setPaymentMethod] = useState("onDel")
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(savePaymentMethod(paymentMethod))
@@ -25,11 +25,18 @@ const PaymentMethodPage = ({ history }) => {
         <Form.Group>
           <Form.Label as="legend">Select Method</Form.Label>
           <Col>
-            <Form.Check
+            {/* <Form.Check
               type="radio"
               label="paypal or cridit card"
               name="paymentMethod"
               value="paypal"
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            /> */}
+            <Form.Check
+              type="radio"
+              label="on delevary"
+              name="paymentMethod"
+              value="onDel"
               onChange={(e) => setPaymentMethod(e.target.value)}
             />
 

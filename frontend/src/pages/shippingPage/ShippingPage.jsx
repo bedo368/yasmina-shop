@@ -52,10 +52,10 @@ const ShippingPage = ({ history }) => {
           />
         </Form.Group>
         <Form.Group controlId="postalCode">
-          <Form.Label> postalCode</Form.Label>
+          <Form.Label> Phone number</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Enter postalCode"
+            placeholder="Enter Phone number"
             name="postalCode"
             value={postalCode}
             onChange={shippingInfoOnChange}

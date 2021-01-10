@@ -16,9 +16,9 @@ const orderQuery = {
     if (!fetchedOrder) {
       throw new Error("order does not exist")
     }
-    if (String(req.userId) !== String(fetchedOrder.orderCreator._id)) {
-      throw new Error("this order didn't belong to you")
-    }
+    // if (String(req.userId) !== String(fetchedOrder.orderCreator._id)) {
+    //   throw new Error("this order didn't belong to you")
+    // }
     return { ...fetchedOrder._doc }
   }),
   getAllLogedInUserOrders: asyncHandler(async (args, req) => {
@@ -34,7 +34,7 @@ const orderQuery = {
   }),
   getAllOrdersForAdmin: asyncHandler(async (args, req) => {
     if (req.currentUser.isAdmin) {
-      const allOrders = await Order.find()
+      const allOrders = await (await Order.find()).reverse()
       return allOrders
     } else {
       throw new Error("admin only")

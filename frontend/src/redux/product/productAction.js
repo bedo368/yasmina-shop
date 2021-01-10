@@ -190,6 +190,7 @@ export const updateProduct = ({
         category,
         description,
         countInStock: Number(countInStock),
+        image
       },
     },
     url: "/graphql",

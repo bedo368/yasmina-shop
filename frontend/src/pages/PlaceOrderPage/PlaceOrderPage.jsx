@@ -84,6 +84,7 @@ const PlaceOrderPage = ({ history }) => {
                   <Col> ${cart.itemsPrice} </Col>
                 </Row>
               </ListGroup.Item>
+              
               <ListGroup.Item>
                 <Row>
                   <Col>Shipping</Col>

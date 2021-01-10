@@ -63,6 +63,7 @@ export default buildSchema(`
         isDelivered : Boolean!
         paidAt : String
         deliveredAt: String
+        ClientPhoneNumber:Int
 
     }
     type ProductWithPages {
@@ -93,7 +94,8 @@ export default buildSchema(`
             taxPrice : Float!
             shippingPrice: Float!
             totalPrice: Float!
-            itemsPrice : Float! ) : Order!
+            itemsPrice : Float!,
+            ) : Order!
 
         updateOrderToPaid(orderId:String! ,orderResult:String!) : Order!
         removeUserById(id:String!) : User!

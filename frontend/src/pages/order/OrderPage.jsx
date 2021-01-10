@@ -158,7 +158,14 @@ const OrderPage = ({ match }) => {
             </ListGroup.Item>
             {!orderDetail?.isPaid && (
               <ListGroup>
-                <Form
+              <ListGroup.Item>
+              <Row>
+                <Col>Phone Number : </Col>
+                <Col>{orderDetail?.shippingAddress?.postalCode} </Col>
+              </Row>
+            </ListGroup.Item>
+              <p> </p>
+                {/* <Form
                   className="m-auto"
                   target="paypal"
                   action="https://www.paypal.com/cgi-bin/webscr"
@@ -183,7 +190,7 @@ const OrderPage = ({ match }) => {
                     width="1"
                     height="1"
                   />
-                </Form>
+                </Form> */}
               </ListGroup>
             )}
           </Card>
