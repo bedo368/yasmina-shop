@@ -39,7 +39,6 @@ const AdminOrdersPage = ({ location, history }) => {
         ) : (
           <Table striped bordered hover responsive className="table-sm">
             <thead>
-              <th>ID</th>
               <th>Date</th>
               <th>Total</th>
               <th>Paid</th>
@@ -49,7 +48,6 @@ const AdminOrdersPage = ({ location, history }) => {
             <tbody>
               {ordersList.map((order) => (
                 <tr key={order._id}>
-                  <td>{order._id}</td>
                   <td>{Date(order.createdAt).substring(0, 10)}</td>
                   <td>${order.totalPrice}</td>
                   <td>

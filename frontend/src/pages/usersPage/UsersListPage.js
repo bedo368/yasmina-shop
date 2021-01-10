@@ -46,7 +46,6 @@ const UsersListPage = ({ history }) => {
         <Table striped bordered hover responsive className="table-sm">
         
           <thead>
-            <th>ID</th>
             <th>name</th>
             <th>email</th>
             <th>Admin</th>
@@ -56,7 +55,6 @@ const UsersListPage = ({ history }) => {
           <tbody>
             {usersList.map((user) => (
               <tr key={user._id}>
-                <td> {user._id}</td>
                 <td> {user.name}</td>
                 <td>
                   <a href={`mailto:${user.email}`}>{user.email}</a>{" "}

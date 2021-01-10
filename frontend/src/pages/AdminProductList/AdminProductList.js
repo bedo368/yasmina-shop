@@ -63,7 +63,6 @@ const AdminProductList = ({ history, match }) => {
       ) : (
         <Table striped bordered hover responsive className="table-sm">
           <thead>
-            <th>ID</th>
             <th>name</th>
             <th>Price</th>
             <th>Category</th>
@@ -72,7 +71,6 @@ const AdminProductList = ({ history, match }) => {
           <tbody>
             {products?.map((product) => (
               <tr key={product._id}>
-                <td> {product._id}</td>
                 <Link to={`/product/${product._id}`}>
                   {" "}
                   <td> {product.name}</td>
