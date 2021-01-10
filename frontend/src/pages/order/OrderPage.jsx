@@ -37,7 +37,7 @@ const OrderPage = ({ match }) => {
     //   //   setSdkReady(true)
     //   // }
     // }
-  }, [match.params.id, dispatch, orderDetail, loadingPay])
+  }, [match.params.id, dispatch])
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
   }
