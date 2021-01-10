@@ -29,13 +29,12 @@ const HomePage = ({ match }) => {
       ) : errMessage ? (
         <Message variant="danger"> {errMessage} </Message>
       ) : (
-        <div style={{ width: "100%" }}>
+        <div >
           <Row
             style={{
               display: "flex",
               alignItems: "center",
               justifyItems: "center",
-              width: "100%",
             }}
           >
             {products?.map((product) => {
@@ -45,9 +44,9 @@ const HomePage = ({ match }) => {
                   sm={12}
                   lg={3}
                   md={6}
-                  style={{ alignSelf: "center" }}
+                  style={{ display:"inline-block"  }}
                 >
-                  <Product product={product} Home={true} />
+                  <Product product={product}  Home={true} />
                 </Col>
               )
             })}

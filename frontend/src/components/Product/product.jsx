@@ -6,8 +6,8 @@ import { Link } from "react-router-dom"
 const product = ({ product, Home }) => {
   return (
     <Card
-      className="my-3 p-3 rounded  mx-auto "
-      style={Home && { backgroundColor:"rgb(173, 12, 100)", color: "white" , display:"flex" }}
+      className="my-2 p-4 rounded mx-auto  "
+      style={Home && { backgroundColor: "rgb(173, 12, 100)", color: "white" }}
     >
       <Link to={`/product/${product?._id}`}>
         <Card.Img
@@ -18,11 +18,15 @@ const product = ({ product, Home }) => {
       </Link>
       <Card.Body>
         <Link to={`/product/${product?._id}`}>
-          <Card.Title as="div" className="mx-auto" style={{ color: "white" , alignSelf: "flex-end" }}>
+          <Card.Title
+            as="div"
+            className="mx-auto"
+            style={{ color: "white", alignSelf: "flex-end" }}
+          >
             {" "}
             {product?.name}{" "}
           </Card.Title>
-        </Link>
+        </Link> 
         <Card.Text>
           <div className="my-3">
             <Rating

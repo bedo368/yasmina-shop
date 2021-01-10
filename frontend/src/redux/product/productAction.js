@@ -161,6 +161,7 @@ export const updateProduct = ({
       Authorization: `Bearer ${token}`,
     },
   }
+  top = (top ==1) ? true : false
 
   dispatch({ type: productTypes.CLEAR_PRODUCT })
 
