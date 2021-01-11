@@ -18,7 +18,7 @@ const Header = () => {
         bg="dark"
         className="pb-3 pt-1"
         variant="dark"
-        expand="lg"
+        expand="sm"
         collapseOnSelect 
       >
         <Container>
