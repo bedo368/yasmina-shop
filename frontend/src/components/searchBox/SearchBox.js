@@ -25,7 +25,7 @@ const SearchBox = ({history}) => {
           setKeyWord(e.target.value)
         }}
       ></Form.Control>
-      <Button type="submit"  className="p-2 px-3">
+      <Button type="submit" style={{backgroundColor:"#fbb860" , color:"black"}}  className="p-2 px-3 ">
         search
       </Button>
     </Form>
