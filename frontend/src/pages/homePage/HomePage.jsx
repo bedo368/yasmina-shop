@@ -29,24 +29,26 @@ const HomePage = ({ match }) => {
       ) : errMessage ? (
         <Message variant="danger"> {errMessage} </Message>
       ) : (
-        <div >
+        <div style={{ width: "100%" }}>
           <Row
             style={{
               display: "flex",
-              alignItems: "center",
-              justifyItems: "center",
+              alignContent:"space-evenly"
+              
+            
+
             }}
           >
             {products?.map((product) => {
               return (
                 <Col
                   key={product._id}
-                  sm={12}
-                  lg={3}
-                  md={6}
-                  style={{ display:"inline-block"  }}
+                  // sm={12}
+                  // lg={3}
+                  // md={6}
+                  style={{  }}
                 >
-                  <Product product={product}  Home={true} />
+                  <Product product={product} Home={true} />
                 </Col>
               )
             })}

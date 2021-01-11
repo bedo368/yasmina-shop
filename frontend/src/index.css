@@ -42,10 +42,12 @@ main{
   margin: 0 auto;
 }
 
-
+.container{
+  max-width: 1400px;
+}
 .card{
-  max-width: 330px;
-  min-width: 250px;
+  max-width: 340px;
+  min-width: 300px;
 
 }
 

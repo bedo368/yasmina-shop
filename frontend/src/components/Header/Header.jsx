@@ -19,7 +19,7 @@ const Header = () => {
         className="pb-3 pt-1"
         variant="dark"
         expand="lg"
-        collapseOnSelect
+        collapseOnSelect 
       >
         <Container>
           <LinkContainer to="/">
