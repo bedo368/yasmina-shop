@@ -14,7 +14,7 @@ const SearchBox = ({history}) => {
     setKeyWord("")
   }
   return (
-    <Form onSubmit={submitHandler} className="m-auto pb-1" >
+    <Form onSubmit={submitHandler} className="m-auto pb-1 " >
       <Form.Control
         type="text"
         style={{width:"70%" ,display:"inline-block"}}
