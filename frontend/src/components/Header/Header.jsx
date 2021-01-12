@@ -23,7 +23,7 @@ const Header = () => {
       >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand className="brand-style"><img src="./images/favicon.png"  style={{width:"30px" , margin:"0" } } ></img>Yasmina</Navbar.Brand>
+            <Navbar.Brand className="brand-style"><img src="favicon.png"  style={{width:"30px" , margin:"0" } } ></img>Yasmina</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
