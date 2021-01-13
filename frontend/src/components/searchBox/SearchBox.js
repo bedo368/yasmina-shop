@@ -2,7 +2,6 @@ import React, { useState } from "react"
 import { Button, Form, NavDropdown } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { LinkContainer } from "react-router-bootstrap"
-
 const SearchBox = ({ history }) => {
   const [keyWord, setKeyWord] = useState("")
   const {catigories} = useSelector(state=> state.productsReducer)

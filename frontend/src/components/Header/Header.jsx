@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { logout } from "../../redux/user/userAction"
 import SearchBox from "../searchBox/SearchBox"
 import { Route } from "react-router-dom"
+import logo from "./favicon.png"
+
 const Header = () => {
   const { userInfo } = useSelector((state) => state.userReducer)
   const dispatch = useDispatch()
@@ -25,7 +27,7 @@ const Header = () => {
           <LinkContainer to="/">
             <Navbar.Brand className="brand-style">
               <img
-                src="favicon.png"
+                src={logo}
                 style={{ width: "30px", margin: "0" }}
               ></img>
               Yasmina
