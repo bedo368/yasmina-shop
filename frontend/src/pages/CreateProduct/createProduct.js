@@ -52,7 +52,7 @@ const CreateProduct = ({ history }) => {
         countInStock,
         category,
         imageUpload,
-        top
+        top,
       })
     )
   }
@@ -65,7 +65,7 @@ const CreateProduct = ({ history }) => {
       }
     })
   }
-const [top , setTop]= useState(false)
+  const [top, setTop] = useState(false)
   return (
     <div className="create-product">
       {loading && <Loader />}
@@ -93,7 +93,6 @@ const [top , setTop]= useState(false)
                   value={price}
                   onChange={productInfoOnChange}
                 />
-                
               </Form.Group>
               <Form.Group controlId="email">
                 <Form.Check
@@ -107,13 +106,13 @@ const [top , setTop]= useState(false)
               </Form.Group>
               <Form.Group controlId="image">
                 <Form.Label>image</Form.Label>
-                {/* <Form.Control
-                                    type="text"
-                                    placeholder="Enter image"
-                                    name="image"
-                                    value={image}
-                                    onChange={productInfoOnChange}
-                                /> */}
+                <Form.Control
+                  type="text"
+                  placeholder="Enter image"
+                  name="image"
+                  value={image}
+                  onChange={productInfoOnChange}
+                />
                 <Form.File
                   label="chose file "
                   custom

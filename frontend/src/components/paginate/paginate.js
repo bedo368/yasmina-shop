@@ -16,7 +16,7 @@ const Paginate = ({
           <LinkContainer
             key={x + 1}
             onClick={()=>{
-              window.scrollTo(0, 400);
+              window.scrollTo({top:400 , behavior:"auto"});
 
             }}
             to={ !isOwner ? !isAdmin ? keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x+1}` : `/admin/productslist/page/${x+1}` : `/owner/productslist/page/${x+1}` }

@@ -101,14 +101,14 @@ export const createNewProduct = ({
     }
   }
   `
-  Axios.post("/upload", imageUpload, config).then((data) => {
+  if (image) {
     Axios({
       method: "POST",
       data: {
         query,
         variables: {
           name,
-          image: data.data,
+          image,
           brand,
           price: Number(price),
           category,
@@ -139,7 +139,47 @@ export const createNewProduct = ({
 
         dispatch(fitchProductfail(errorMessage))
       })
-  })
+  } else {
+    Axios.post("/upload", imageUpload, config).then((data) => {
+      Axios({
+        method: "POST",
+        data: {
+          query,
+          variables: {
+            name,
+            image: data.data,
+            brand,
+            price: Number(price),
+            category,
+            description,
+            countInStock: Number(countInStock),
+            top,
+          },
+        },
+        url: "/graphql",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then((res) => {
+          dispatch({
+            type: productTypes.CREATE_NEW_PRODUCT,
+            payload: res.data.data.createProduct,
+          })
+        })
+        .then(() => {
+          dispatch({ type: productTypes.CLEAR_PRODUCT })
+        })
+        .catch((error) => {
+          const errorMessage = error.response.data.errors
+            ? error.response.data.errors[0].message
+            : error.response.data
+
+          dispatch(fitchProductfail(errorMessage))
+        })
+    })
+  }
 }
 
 export const updateProduct = ({
@@ -161,7 +201,7 @@ export const updateProduct = ({
       Authorization: `Bearer ${token}`,
     },
   }
-  top = (top ==1) ? true : false
+  top = top == 1 ? true : false
 
   dispatch({ type: productTypes.CLEAR_PRODUCT })
 
