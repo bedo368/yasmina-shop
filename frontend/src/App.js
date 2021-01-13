@@ -3,7 +3,7 @@ import React, { lazy, Suspense } from "react"
 import Footer from "./components/footer/footer"
 import Header from "./components/Header/Header"
 import { Container } from "react-bootstrap"
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { useDispatch } from "react-redux"
 import { checkForToken } from "./redux/user/userAction"
 import Loader from "./components/loader/Loader"
@@ -40,6 +40,7 @@ const HomePage = lazy(() => import("./pages/homePage/HomePage"))
 const ProductPage = lazy(() => import("./pages/porductPage/ProductPage"))
 const cartPage = lazy(() => import("./pages/cartPage.jsx/cartPage"))
 const LoginPage = lazy(() => import("./pages/loginpage/LoginPage"))
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"))
 
 function App({}) {
   const dispatch = useDispatch()
@@ -53,52 +54,59 @@ function App({}) {
       <main className="py-3">
         <Container>
           <Suspense fallback={<Loader />}>
-            <Route path="/" component={HomePage} exact />
-            <Route path="/page/:pageNumber" component={HomePage} exact />
-            <Route
-              path="/search/:keyword/page/:pageNumber"
-              component={HomePage}
-              exact
-            />
-            <Route path="/search/:keyword" component={HomePage} exact />
-            <Route path="/category/:categoryID" component={HomePage}  />
-            <Route path="/product/:id" component={ProductPage} />
-            <Route path="/cart/:id?" component={cartPage} />
-            <Route path="/login" component={LoginPage} />
-            <Route path="/register" component={RegisterPage} />
-            <Route path="/profile" component={ProfilePage} />
-            <Route path="/user/orders" component={UserOrderPage} />
-            <Route path="/admin/orderlist" component={AdminOrdersPage} />
-            <Route path="/shipping" component={ShippingPage} />
-            <Route path="/payment" component={PaymentMetodPage} />
-            <Route path="/placeorder" component={PlaceOrderPage} />
-            <Route path="/order/:id" component={OrderPage} />
-            <Route path="/admin/userlist" component={UsersListPage} />
-            <Route
-              path="/owner/productslist"
-              component={ProductsListPage}
-              exact
-            />
-            <Route
-              path="/owner/productslist/page/:pagenumber"
-              component={ProductsListPage}
-            />
-            <Route
-              path="/admin/productslist"
-              component={AdminProductList}
-              exact
-            />
-            <Route
-              path="/admin/productslist/page/:pagenumber"
-              component={AdminProductList}
-              exact
-            />
-            <Route path="/admin/updateproduct/:id" component={UpdateProduct} />
-            <Route
-              path="/admin/user/:userid/edit"
-              component={UserProfileForAdmin}
-            />
-            <Route path="/create/product" component={CreateProduct} />
+            <Switch>
+              <Route path="/" component={HomePage} exact />
+              <Route path="/page/:pageNumber" component={HomePage} exact />
+              <Route
+                path="/search/:keyword/page/:pageNumber"
+                component={HomePage}
+                exact
+              />
+              <Route path="/search/:keyword" component={HomePage} exact />
+              <Route path="/category/:categoryID" component={HomePage} />
+              <Route path="/product/:id" component={ProductPage} />
+              <Route path="/cart/:id?" component={cartPage} />
+              <Route path="/login" component={LoginPage} />
+              <Route path="/register" component={RegisterPage} />
+              <Route path="/profile" component={ProfilePage} />
+              <Route path="/user/orders" component={UserOrderPage} />
+              <Route path="/admin/orderlist" component={AdminOrdersPage} />
+              <Route path="/shipping" component={ShippingPage} />
+              <Route path="/payment" component={PaymentMetodPage} />
+              <Route path="/placeorder" component={PlaceOrderPage} />
+              <Route path="/order/:id" component={OrderPage} />
+              <Route path="/admin/userlist" component={UsersListPage} />
+              <Route
+                path="/owner/productslist"
+                component={ProductsListPage}
+                exact
+              />
+              <Route
+                path="/owner/productslist/page/:pagenumber"
+                component={ProductsListPage}
+              />
+              <Route
+                path="/admin/productslist"
+                component={AdminProductList}
+                exact
+              />
+              <Route
+                path="/admin/productslist/page/:pagenumber"
+                component={AdminProductList}
+                exact
+              />
+              <Route
+                path="/admin/updateproduct/:id"
+                component={UpdateProduct}
+              />
+              <Route
+                path="/admin/user/:userid/edit"
+                component={UserProfileForAdmin}
+              />
+              <Route path="/create/product" component={CreateProduct} />
+
+              <Route component={NotFound} />
+            </Switch>
           </Suspense>
         </Container>
       </main>
