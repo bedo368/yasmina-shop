@@ -31,29 +31,32 @@ const HomePage = ({ match }) => {
         <Message variant="danger"> {errMessage} </Message>
       ) : (
         <div style={{ width: "100%" }}>
-          <Row
+          <div
             style={{
+              width :"100%",
               display: "flex",
-              alignContent:"space-evenly"
+              flexDirection: "row | row-reverse | column | column-reverse",
+              flexWrap:"wrap",
+              alignContent:"space-around",
+              alignItems:"center",
+              justifyContent:"space-evenly"
               
-            
 
             }}
           >
             {products?.map((product) => {
               return (
-                <Col
+                <div
                   key={product._id}
                   // sm={12}
                   // lg={3}
                   // md={6}
-                  style={{  }}
                 >
                   <Product product={product} Home={true} />
-                </Col>
+                </div>
               )
             })}
-          </Row>
+          </div>
           <Container
             style={{
               width: "100%",

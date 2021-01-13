@@ -46,8 +46,7 @@ main{
   max-width: 1200px;
 }
 .card{
-  max-width: 340px;
-  min-width: 300px;
+  width: 320px;
 
 }
 
