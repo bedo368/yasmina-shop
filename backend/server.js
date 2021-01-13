@@ -14,16 +14,16 @@ const app = express()
 app.use(express.json())
 app.use(authMiddleWare)
 
-app.use("/", UserRoutes)
+app.use(errorHandler)
+app.use("/user", UserRoutes)
 app.use("/upload", uploadRoute)
 dotenv.config()
-app.use(errorHandler)
 const __dirname = path.resolve()
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 app.use(
     "/graphql",
     graphqlHTTP({
-        graphiql: true,
+        graphiql: false,
         schema: schema,
         rootValue: resolovers,
     })

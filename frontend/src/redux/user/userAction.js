@@ -8,7 +8,7 @@ export const login = (email, password) => async (dispatch, getState) => {
     })
     const { data } = await Axios({
       method: "POST",
-      url: "/login",
+      url: "/user/login",
       data: {
         email,
         password,
@@ -52,7 +52,7 @@ export const register = (name, email, password) => async (dispatch, getState) =>
     })
     const { data } = await Axios({
       method: "POST",
-      url: "/register",
+      url: "/user/register",
       data: {
         email,
         password,
@@ -85,7 +85,7 @@ export const checkForToken = () => async (dispatch , getState) => {
   const token = getState().userReducer.userInfo?.token 
     Axios({
       method: "POST",
-      url: "/checktoken",
+      url: "/user/checktoken",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
