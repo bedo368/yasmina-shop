@@ -19,11 +19,17 @@ const Header = () => {
         className="pb-3 pt-1"
         variant="dark"
         expand="sm"
-        collapseOnSelect 
+        collapseOnSelect
       >
         <Container>
           <LinkContainer to="/">
-            <Navbar.Brand className="brand-style"><img src="favicon.png"  style={{width:"30px" , margin:"0" } } ></img>Yasmina</Navbar.Brand>
+            <Navbar.Brand className="brand-style">
+              <img
+                src="favicon.png"
+                style={{ width: "30px", margin: "0" }}
+              ></img>
+              Yasmina
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -73,8 +79,8 @@ const Header = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <Container >
-        <Route  render={({ history }) => <SearchBox history={history}  />} />
+      <Container>
+        <Route render={({ history }) => <SearchBox history={history} />} />
       </Container>
     </div>
   )

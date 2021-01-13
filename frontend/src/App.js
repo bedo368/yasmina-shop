@@ -61,6 +61,7 @@ function App({}) {
               exact
             />
             <Route path="/search/:keyword" component={HomePage} exact />
+            <Route path="/category/:categoryID" component={HomePage}  />
             <Route path="/product/:id" component={ProductPage} />
             <Route path="/cart/:id?" component={cartPage} />
             <Route path="/login" component={LoginPage} />

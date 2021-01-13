@@ -16,10 +16,11 @@ const HomePage = ({ match }) => {
     dispatch(
       fetchProductsAscync(
         match.params.keyword,
-        Number(match.params.pageNumber) || 1
+        Number(match.params.pageNumber) || 1, 
+        match.params.categoryID 
       )
     )
-  }, [dispatch, match.params.keyword, match.params.pageNumber])
+  }, [dispatch, match.params.keyword, match.params.pageNumber , match.params.categoryID])
 
   return (
     <>

@@ -1,7 +1,7 @@
 import productsTypes from "./productsTypes"
 import productTypes from "./productsTypes"
 
-const INTIAL_STATE = { products: null, loading: false, errMessage: "" }
+const INTIAL_STATE = { products: null, loading: false, errMessage: "" , catigories:[] }
 
 const productReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
@@ -12,10 +12,11 @@ const productReducer = (state = INTIAL_STATE, action) => {
         ...state,
 
         loading: false,
-        products: action.payload.products,
+        products: action.payload.getAllProducts.products,
         errMessage: null,
-        pages: action.payload.pages,
-        pageNumber: action.payload.pageNumber,
+        pages: action.payload.getAllProducts.pages,
+        pageNumber: action.payload.getAllProducts.pageNumber,
+        catigories :  action.payload.getCategories
       }
 
     case productTypes.FETCH_PRODUCTS_FAIL:

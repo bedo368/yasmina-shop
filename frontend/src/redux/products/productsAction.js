@@ -19,12 +19,12 @@ const fitchProductfail = (error) => {
   }
 }
 
-export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
+export const fetchProductsAscync = (keyword = "", pageNumber = 1 ,category = "") => {
   return (dispatch) => {
     dispatch(fitchProductStart())
     const query = `
      query{
-       getAllProducts(keyword:"${keyword}" , pageNumber:${pageNumber}) {
+       getAllProducts(keyword:"${keyword}" , pageNumber:${pageNumber} , category:"${category}") {
        
          products{
           _id
@@ -43,7 +43,8 @@ export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
          pageNumber
          
          
-       }
+       },
+       getCategories
      }
      `
     Axios({
@@ -54,7 +55,7 @@ export const fetchProductsAscync = (keyword = "", pageNumber = 1) => {
       url: "/graphql",
     })
       .then((res) => {
-        dispatch(fitchProductSuccess(res.data.data.getAllProducts))
+        dispatch(fitchProductSuccess(res.data.data))
       })
       .catch((error) => {
         const errorMessage = error.response.data.errors
