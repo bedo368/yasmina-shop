@@ -1,0 +1,1 @@
+{"version":3,"sources":["file.css"],"names":[],"mappings":"AACA,gBACE,iBAAkB,CAClB,iBACF,CACA,eACE,eAAgB,CAChB,kBACF,CACA,oBACE,iBACF","file":"21.7c19f0b3.chunk.css","sourcesContent":["\n.error-template {\n  padding: 40px 15px;\n  text-align: center;\n}\n.error-actions {\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\n.error-actions .btn {\n  margin-right: 10px;\n}\n"]}
