@@ -11,7 +11,7 @@ import { authMiddleWare } from "./Middleware/auth.js"
 import uploadRoute from "./uplodRout/uploadRout.js"
 const app = express()
 
-app.use(express.json())
+app.use(express.json()) 
 app.use(authMiddleWare)
 
 app.use(errorHandler) 

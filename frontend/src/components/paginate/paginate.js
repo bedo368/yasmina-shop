@@ -15,13 +15,17 @@ const Paginate = ({
         {[...Array(pages ).keys()].map((x) => (
           <LinkContainer
             key={x + 1}
+            onClick={()=>{
+              window.scrollTo(0, 400);
+
+            }}
             to={ !isOwner ? !isAdmin ? keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x+1}` : `/admin/productslist/page/${x+1}` : `/owner/productslist/page/${x+1}` }
           >
             <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
           </LinkContainer>
         ))}
       </Pagination>
-    )
+    ) 
   )
 }
 
