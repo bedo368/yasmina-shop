@@ -7,7 +7,7 @@ const product = ({ product, Home }) => {
   return (
     <Card
       className="my-2 p-4 rounded mx-auto  "
-      style={Home && { backgroundColor: "rgb(173, 12, 100)", color: "white" }}
+      style={Home && { backgroundColor: "#E52165", color: "white" }}
     >
       <Link to={`/product/${product?._id}`}>
         <Card.Img
