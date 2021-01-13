@@ -71,12 +71,13 @@ export default buildSchema(`
         products : [Product]!
         pageNumber : Int
         pages : Int
+        category : String
     }
 
 
     type rootQuery{ 
         getUserProfile : User!
-        getAllProducts(keyword:String , pageNumber:Int) : ProductWithPages!
+        getAllProducts(keyword:String , pageNumber:Int , category:String) : ProductWithPages!
         getAdminProducts( pageNumber: Int ): ProductWithPages!
         getProductById(id:String): Product!
         getOrderById(id:String): Order!
@@ -86,6 +87,7 @@ export default buildSchema(`
         updateUserProfileForAdmin(id:String!, name:String, email:String, adminPassword:String!, isAdmin : Boolean!): User!
         getAllOrdersForAdmin : [Order]!
         getTopProduct : [Product]!
+        getCategories : [String]
     }
     type rootMutation {
         updateUserProfile(name:String , email: String , password :String , oldPassword: String! ) : User!

@@ -15,13 +15,30 @@ const productsQuery = {
           },
         }
       : {}
+    const category = args.category ? args.category : ""
 
     try {
-      const ProductCount = await Product.countDocuments({ ...keyword })
-      const products = await Product.find({ ...keyword })
-        .limit(pageSize)
-        .skip(pageSize * (pageNumber - 1))
-      return { products, pageNumber, pages: Math.ceil(ProductCount / pageSize) }
+      if (category) {
+        const ProductCount = await Product.countDocuments({ category })
+        const products = await Product.find({ category })
+          .limit(pageSize)
+          .skip(pageSize * (pageNumber - 1))
+        return {
+          products,
+          pageNumber,
+          pages: Math.ceil(ProductCount / pageSize),
+        }
+      } else {
+        const ProductCount = await Product.countDocuments({ ...keyword })
+        const products = await Product.find({ ...keyword })
+          .limit(pageSize)
+          .skip(pageSize * (pageNumber - 1))
+        return {
+          products,
+          pageNumber,
+          pages: Math.ceil(ProductCount / pageSize),
+        }
+      }
     } catch (error) {
       throw new Error("No products")
     }
@@ -60,8 +77,14 @@ const productsQuery = {
     }
   }),
   getTopProduct: asyncHandler(async (arg, req) => {
-    const topProduct = await (await Product.find({top:true}).limit(4)).reverse()
+    const topProduct = await (
+      await Product.find({ top: true }).limit(4)
+    ).reverse()
     return topProduct
+  }),
+  getCategories: asyncHandler(async (req, res) => {
+    const categories = await Product.distinct("category")
+    return categories
   }),
 }
 const productsMutation = {
@@ -102,7 +125,7 @@ const productsMutation = {
           brand,
           countInStock,
           price,
-          top
+          top,
         } = args
         const newProduct = new Product({
           name,
@@ -135,7 +158,7 @@ const productsMutation = {
       brand,
       countInStock,
       price,
-      top
+      top,
     } = args
     if (req.isAuth) {
       const isAdminUser = await User.findById(req.currentUser._id)
@@ -148,7 +171,7 @@ const productsMutation = {
           productToEdit.brand = brand || productToEdit.brand
           productToEdit.category = category || productToEdit.category
           productToEdit.top = top || productToEdit.top
-          
+
           productToEdit.countInStock =
             countInStock || productToEdit.countInStock
           productToEdit.price = price || productToEdit.price
