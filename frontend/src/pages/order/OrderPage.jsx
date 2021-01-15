@@ -17,27 +17,26 @@ const OrderPage = ({ match }) => {
   const { loading: loadingPay, success: successPay } = orderPay
 
   useEffect(() => {
-    // const addPaypalScript = async () => {
-    //   const  {data}  = await Axios.get("/api/config/paypal")
-    //   const script = document.createElement("script")
-    //   script.type = "text/javascript"
-    //   script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
-    //   script.async = true
+    const addPaypalScript = async () => {
+      const { data } = await Axios.get("/api/config/paypal")
+      const script = document.createElement("script")
+      script.type = "text/javascript"
+      script.src = `https://www.paypal.com/sdk/js?client-id=${data}`
+      script.async = true
 
-    //   script.onload = () => {
-    //     setSdkReady(true)
-    //   }
-    //   document.body.appendChild(script)
-    // }
-    dispatch(getOrderById({ id: match.params.id }))
-    // if (successPay || !orderDetail) {
-    //   // if (!window.paypal) {
-    //   //   addPaypalScript()
-    //   // } else {
-    //   //   setSdkReady(true)
-    //   // }
-    // }
-  }, [match.params.id, dispatch])
+      script.onload = () => {
+        setSdkReady(true)
+      }
+      document.body.appendChild(script)
+    }
+    if (successPay || !orderDetail) {
+      dispatch(getOrderById({ id: match.params.id }))
+    } else if (!window.paypal) {
+      addPaypalScript()
+    } else {
+      setSdkReady(true)
+    }
+  }, [match.params.id, dispatch, successPay, orderDetail])
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
   }
@@ -157,41 +156,22 @@ const OrderPage = ({ match }) => {
               </Row>
             </ListGroup.Item>
             {!orderDetail?.isPaid && (
-              <ListGroup>
               <ListGroup.Item>
-              <Row>
-                <Col>Phone Number : </Col>
-                <Col>{orderDetail?.shippingAddress?.postalCode} </Col>
-              </Row>
-            </ListGroup.Item>
-              <p> </p>
-                {/* <Form
-                  className="m-auto"
-                  target="paypal"
-                  action="https://www.paypal.com/cgi-bin/webscr"
-                  method="post"
-                >
-                  <input type="hidden" name="cmd" value="_s-xclick" />
-                  <input
-                    name="hosted_button_id"
-                    type="hidden"
-                    value={orderDetail?.totalPrice}
+                {loadingPay && <Loader />}
+                {!sdkReady ? (
+                  <Loader />
+                ) : (
+                  <PayPalButton
+                    amount={orderDetail?.totalPrice}
+                    onSuccess={successPaymentHandler}
                   />
-                  <input
-                    alt="PayPal - The safer, easier way to pay online!"
-                    name="submit"
-                    src="https://www.paypal.com/en_US/i/btn/btn_buynowCC_LG.gif"
-                    type="image"
-                  />
-                  <img
-                    src="https://www.paypal.com/en_US/i/scr/pixel.gif"
-                    border="0"
-                    alt=""
-                    width="1"
-                    height="1"
-                  />
-                </Form> */}
-              </ListGroup>
+                )}
+              </ListGroup.Item>
+            )}
+            {!orderDetail?.isPaid && (
+              <ListGroup.Item>
+                phone : {orderDetail?.shippingAddress?.postalCode}
+              </ListGroup.Item>
             )}
           </Card>
         </Col>
