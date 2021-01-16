@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 const product = ({ product, Home }) => {
   return (
     <Card
-      className="my-2 p-4 rounded mx-auto  "
+      className="my-4 p-4 rounded mx-auto  "
       // style={Home && { backgroundColor: "#E52165", color: "white" }}
       style={{boxShadow:"5px 5px 20px"}}
     >
