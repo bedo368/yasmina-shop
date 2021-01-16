@@ -20,17 +20,17 @@ const ProductsListPage = lazy(() =>
 const CreateProduct = lazy(() => import("./pages/CreateProduct/createProduct"))
 const AdminProductList = lazy(() =>
   import("./pages/AdminProductList/AdminProductList")
-)
+) 
 const UpdateProduct = lazy(() =>
   import("./pages/updateProductPage/updataProductPage")
 )
-const AdminOrdersPage = lazy(() =>
+const AdminOrdersPage = lazy(() => 
   import("./pages/adminOrdersPage/AdminOrdersPage")
 )
 const RegisterPage = lazy(() => import("./pages/RegisterPage/RegisterPage"))
 const ProfilePage = lazy(() => import("./pages/ProfilePage/ProfilePage"))
 const ShippingPage = lazy(() => import("./pages/shippingPage/ShippingPage"))
-const PaymentMetodPage = lazy(() =>
+const PaymentMetodPage = lazy(() => 
   import("./pages/PaymentMetodPage/PaymentMetodPage")
 )
 const PlaceOrderPage = lazy(() =>

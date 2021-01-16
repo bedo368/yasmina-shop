@@ -16,7 +16,7 @@ const ProductPage = ({ match, history }) => {
   const [qty, setQty] = useState(1)
   const [product, setProduct] = useState({})
   useEffect(() => {
-    dispatch({type:"CLEAR_ERROR_MASSAGE"})
+    dispatch({ type: "CLEAR_ERROR_MASSAGE" })
     if (products === null) {
       dispatch(fetchProductAscync(match.params.id))
     }
@@ -28,14 +28,13 @@ const ProductPage = ({ match, history }) => {
     if (products === null) {
       setProduct(productFromRedux.product)
     }
-  }, [productFromRedux,productFromRedux.product])
+  }, [productFromRedux, productFromRedux.product])
 
   const addToCartHandeler = () => {
-    if(qty!== 0){
+    if (qty !== 0) {
       dispatch(addToCart(product, qty))
       history.push(`/cart/${product._id}?qty=${qty}`)
     }
-    
   }
 
   return (
@@ -50,17 +49,22 @@ const ProductPage = ({ match, history }) => {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product?.image} alt={product?.name} fluid />
+            <Image src={product?.image} alt={product?.name} fluid style={{ maxHeight: "500px",boxShadow:"2px 2px 20px" }} />
           </Col>
           <Col md={3}>
             <ListGroup.Item>
               <h3>{product?.name} </h3>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Rating value={product?.rating} text={`${product?.numReviews} reviews `} />
+              <Rating
+                value={product?.rating}
+                text={`${product?.numReviews} reviews `}
+              />
             </ListGroup.Item>
             <ListGroup.Item>price : {product?.price}$</ListGroup.Item>
-            <ListGroup.Item>Description : {product?.description}</ListGroup.Item>
+            <ListGroup.Item>
+              Description : {product?.description}
+            </ListGroup.Item>
           </Col>
           <Col md={3}>
             <Card>
@@ -77,42 +81,47 @@ const ProductPage = ({ match, history }) => {
               <ListGroup.Item varient="flush">
                 <Row>
                   <Col>Stauts</Col>
-                  <Col>{product?.countInStock > 0 ? "in stock" : "outof stock"}</Col>
-                </Row>
-              </ListGroup.Item>
-            </Card>
-            {product?.countInStock > 0 && (
-              <ListGroup.Item>
-                <Row>
-                  <Col>Qty</Col>
                   <Col>
-                    <Form.Control
-                      as="select"
-                      value={qty}
-                      onChange={(e) => {
-                        setQty(e.target.value)
-                      }}
-                    >
-                      {[...Array(product?.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
-                    </Form.Control>
+                    {product?.countInStock > 0 ? "in stock" : "outof stock"}
                   </Col>
                 </Row>
               </ListGroup.Item>
-            )}
-            <ListGroup.Item>
-              <Button
-                onClick={addToCartHandeler}
-                className="btn-block"
-                type="button"
-                disabled={product?.countInStock === 0}
-              >
-                Add To Cart
-              </Button>
-            </ListGroup.Item>
+            </Card>
+
+            <Card>
+              {product?.countInStock > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Qty</Col>
+                    <Col>
+                      <Form.Control
+                        as="select"
+                        value={qty}
+                        onChange={(e) => {
+                          setQty(e.target.value)
+                        }}
+                      >
+                        {[...Array(product?.countInStock).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                      </Form.Control>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              )}
+              <ListGroup.Item>
+                <Button
+                  onClick={addToCartHandeler}
+                  className="btn-block"
+                  type="button"
+                  disabled={product?.countInStock === 0}
+                >
+                  Add To Cart
+                </Button>
+              </ListGroup.Item>
+            </Card>
           </Col>
         </Row>
       )}

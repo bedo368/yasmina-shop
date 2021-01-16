@@ -148,6 +148,7 @@ export const getOrderById = ({ id }) => async (dispatch, getState) => {
           }
           isPaid
           isDelivered
+          paidAt
           createdAt
           updatedAt
       }

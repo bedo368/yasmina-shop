@@ -1,6 +1,7 @@
 import Order from "../../models/orderModel.js"
 import asyncHandler from "express-async-handler"
 import User from "../../models/userModels.js"
+import { json } from "express"
 
 const orderQuery = {
   // fetch order bi ID
@@ -80,16 +81,26 @@ const orderMutation = {
   }),
   // UPDATE ORDER TO PAID
   updateOrderToPaid: asyncHandler(async (args, req) => {
-    const { orderId, orderResult } = args
+
+    const { orderId } = args
+    const orderResult = JSON.parse(args.orderResult)
     if (!req.isAuth) {
       throw new Error("please log in and try agien")
     }
     const order = await Order.findById(orderId)
+
     if (order) {
       order.isPaid = true
       order.paidAt = Date.now()
+      order.paymentMethod = "paypal"
+      order.paymentResult = {
+        id : orderResult.id,
+        status:orderResult.status,
+        update_time : orderResult.update_time,
+        email_address :orderResult.payer.email_address
+      }
     }
-    const updatedOrder = await Order.save()
+    const updatedOrder = await order.save()
     console.log(updatedOrder)
     return updatedOrder
   }),

@@ -1,5 +1,10 @@
+import axios from "axios"
 import orderPayTypes from "./orderPayTypes"
-export const orderPay = (orderId, paymentResult) => async (dispatch, getState) => {
+
+export const updateOrderPay = (orderId, paymentResult) => async (
+  dispatch,
+  getState
+) => {
   try {
     const token = getState().userReducer.userInfo.token
     dispatch({
@@ -11,8 +16,8 @@ export const orderPay = (orderId, paymentResult) => async (dispatch, getState) =
         }
       }`
 
-    const variables = { id }
-    const { data } = await Axios.post(
+    const variables = { orderId, orderResult: JSON.stringify(paymentResult) }
+    const { data } = await axios.post(
       "/graphql",
       {
         query,
@@ -25,9 +30,9 @@ export const orderPay = (orderId, paymentResult) => async (dispatch, getState) =
         },
       }
     )
+
     dispatch({
       type: orderPayTypes.ORDER_PAY_SUCCESS,
-      payload: data.data.getOrderById,
     })
   } catch (error) {
     const errorMessage = error.response?.data.errors
