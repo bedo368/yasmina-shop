@@ -34,15 +34,7 @@ const SearchBox = ({ history }) => {
         search
       </Button>
       
-      <NavDropdown color="blue" style={{ display: "inline-block", color: "white" ,  }} className="p-0 m-0">
-      {catigories.map(cat =>(
-        <LinkContainer to={`/category/${cat}`}>
-          <NavDropdown.Item>{cat}</NavDropdown.Item>
-        </LinkContainer>
-
-      ))}
-        
-      </NavDropdown>
+      
     </Form>
   )
 }
