@@ -35,6 +35,12 @@ export const fetchProductAscync = (id) => {
          description
          countInStock
          top
+         reviews{
+           _id 
+           creator{
+             name
+           }
+         }
          
          
        }

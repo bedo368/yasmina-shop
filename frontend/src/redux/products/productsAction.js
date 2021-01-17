@@ -38,6 +38,12 @@ export const fetchProductsAscync = (keyword = "", pageNumber = 1 ,category = "")
           description
           countInStock
           top
+          reviews{
+            _id 
+            creator{
+              name
+            }
+          }
          }
          pages
          pageNumber

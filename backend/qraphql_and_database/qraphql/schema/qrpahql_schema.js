@@ -1,7 +1,13 @@
 import { buildSchema } from "graphql"
 
 export default buildSchema(`
+    type Rivew {
+        _id:ID!
+        creator : User!
+        comment: String!
+        rating :Float!
 
+    }
     type Product{
         _id: ID!
         name: String!
@@ -12,12 +18,13 @@ export default buildSchema(`
         price: Float!
         countInStock: Int!
         rating:Float!
-        numReviews: Int! 
+        numReviews: Int!  
         top:Int
+        reviews : [Rivew]
         
     } 
     type OrderItem {
-        _id :ID!
+        _id :ID! 
         name:String!
         qty: Float!
         image:String!

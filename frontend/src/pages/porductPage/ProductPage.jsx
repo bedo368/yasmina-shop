@@ -39,9 +39,11 @@ const ProductPage = ({ match, history }) => {
 
   return (
     <div className="productPage">
-      <Link className="btn btn-light my-3" to="/">
+      <Button className="btn btn-light my-3" onClick={()=>{
+        history.goBack()
+      }} >
         Go Back
-      </Link>
+      </Button>
       {loading ? (
         <Loader />
       ) : errMessage ? (
