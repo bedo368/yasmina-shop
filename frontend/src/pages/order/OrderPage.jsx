@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
-import { getOrderById, updateOrderToDelvired } from "../../redux/order/orderAction"
+import {
+  getOrderById,
+  updateOrderToDelvired,
+} from "../../redux/order/orderAction"
 import { updateOrderPay } from "../../redux/order/orderPay/orderPayAction"
 
 const OrderPage = ({ match }) => {
@@ -15,7 +18,7 @@ const OrderPage = ({ match }) => {
   const { orderDetail, orderDetailFetchState, orderDetailErrorMassge } = order
   const [sdkReady, setSdkReady] = useState(false)
   const orderPay = useSelector((state) => state.orderPayReducer)
-  const {userInfo} = useSelector((state) => state.userReducer)
+  const { userInfo } = useSelector((state) => state.userReducer)
   const { loadingPay, successPay } = orderPay
 
   useEffect(() => {
@@ -47,7 +50,7 @@ const OrderPage = ({ match }) => {
     console.log(paymentResult)
     dispatch(updateOrderPay(orderDetail._id, paymentResult))
   }
-  const assignDeleveryHandler = ()=>{
+  const assignDeleveryHandler = () => {
     dispatch(updateOrderToDelvired(orderDetail._id))
   }
 
@@ -83,7 +86,8 @@ const OrderPage = ({ match }) => {
 
               {orderDetail?.isDelivered ? (
                 <Message variant="success">
-                  deleverd at {new Date(JSON.parse(orderDetail?.deliveredAt)).toUTCString() }{" "}
+                  deleverd at{" "}
+                  {new Date(JSON.parse(orderDetail?.deliveredAt)).toUTCString()}{" "}
                 </Message>
               ) : (
                 <Message variant="danger">not deliverd</Message>
@@ -179,16 +183,19 @@ const OrderPage = ({ match }) => {
                 )}
               </ListGroup.Item>
             )}
-            {(userInfo.isAdmin & orderDetail?.isPaid) && !orderDetail?.isDelivered && (
-              <ListGroup.Item style={{ margin: "auto", border: "none" }}  >
-                <Button onClick={assignDeleveryHandler}> Assign as deleverd </Button>
-              </ListGroup.Item>
-            )}
-            {!orderDetail?.isPaid && (
-              <ListGroup.Item>
-                phone : {orderDetail?.shippingAddress?.postalCode}
-              </ListGroup.Item>
-            )}
+            {userInfo.isAdmin & orderDetail?.isPaid &&
+              !orderDetail?.isDelivered && (
+                <ListGroup.Item style={{ margin: "auto", border: "none" }}>
+                  <Button onClick={assignDeleveryHandler}>
+                    {" "}
+                    Assign as deleverd{" "}
+                  </Button>
+                </ListGroup.Item>
+              )}
+
+            <ListGroup.Item>
+              phone : {orderDetail?.shippingAddress?.postalCode}
+            </ListGroup.Item>
           </Card>
         </Col>
       </Row>
