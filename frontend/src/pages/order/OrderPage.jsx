@@ -179,7 +179,7 @@ const OrderPage = ({ match }) => {
                 )}
               </ListGroup.Item>
             )}
-            {userInfo.isAdmin && !orderDetail?.isDelivered && (
+            {(userInfo.isAdmin & orderDetail?.isPaid) && !orderDetail?.isDelivered && (
               <ListGroup.Item style={{ margin: "auto", border: "none" }}  >
                 <Button onClick={assignDeleveryHandler}> Assign as deleverd </Button>
               </ListGroup.Item>
