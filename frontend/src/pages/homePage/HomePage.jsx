@@ -1,13 +1,13 @@
 import React, { useEffect } from "react"
-import { Col, Container, NavDropdown, Row } from "react-bootstrap"
+import {  Container, NavDropdown, Row } from "react-bootstrap"
 import Product from "../../components/Product/product"
 import { fetchProductsAscync } from "../../redux/products/productsAction"
 import { useDispatch, useSelector } from "react-redux"
-import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
 import Paginate from "../../components/paginate/paginate"
 import ProductCurcusal from "../../components/productCurcusal/ProductCurcusal"
 import { LinkContainer } from "react-router-bootstrap"
+import "./home.scss"
 const HomePage = ({ match }) => {
   const dispatch = useDispatch()
   const {
@@ -38,7 +38,8 @@ const HomePage = ({ match }) => {
       {!match.params.keyword && <ProductCurcusal />}
       <NavDropdown
         title="Catigories"
-        className="p-0 mt-5"
+        className="p-0 mt-5 nav-category "
+        style={{fontWeight:"bolder" , fontSize:"20px" , color:"black",   display:"inline-block" }}
       >
         {catigories.map((cat) => (
           <LinkContainer to={`/category/${cat}`} key={cat}>
@@ -56,7 +57,7 @@ const HomePage = ({ match }) => {
             style={{
               width: "100%",
               display: "flex",
-              flexDirection: "row | row-reverse | column | column-reverse",
+              flexDirection: "row ",
               flexWrap: "wrap",
               alignContent: "space-around",
               alignItems: "center",

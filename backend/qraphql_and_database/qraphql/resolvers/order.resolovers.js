@@ -55,7 +55,6 @@ const orderMutation = {
         shippingAddress,
         paymentMethod,
         itemsPrice,
-        taxPrice,
         shippingPrice,
         totalPrice,
       } = args
@@ -64,7 +63,7 @@ const orderMutation = {
         orderCreator: req.userId,
         shippingAddress: JSON.parse(shippingAddress),
         paymentMethod,
-        taxPrice:25,
+        taxPrice: 25,
         shippingPrice,
         itemsPrice,
         totalPrice,
@@ -81,7 +80,6 @@ const orderMutation = {
   }),
   // UPDATE ORDER TO PAID
   updateOrderToPaid: asyncHandler(async (args, req) => {
-
     const { orderId } = args
     const orderResult = JSON.parse(args.orderResult)
     if (!req.isAuth) {
@@ -94,10 +92,10 @@ const orderMutation = {
       order.paidAt = Date.now()
       order.paymentMethod = "paypal"
       order.paymentResult = {
-        id : orderResult.id,
-        status:orderResult.status,
-        update_time : orderResult.update_time,
-        email_address :orderResult.payer.email_address
+        id: orderResult.id,
+        status: orderResult.status,
+        update_time: orderResult.update_time,
+        email_address: orderResult.payer.email_address,
       }
     }
     const updatedOrder = await order.save()
@@ -116,6 +114,30 @@ const orderMutation = {
     } else {
       throw new Error("order did't update ")
     }
+  }),
+  updateOrderToDeliverd: asyncHandler(async (args, req) => {
+
+    console.log(req.currentUser);
+    console.log(req.isAuth);
+    if(req.isAuth){
+      if (req.currentUser.isAdmin) {
+        const order = await Order.findById(args.id).populate(
+          "orderCreator",
+          " _id name email"
+        )
+        order.isDelivered = true
+        order.deliveredAt = Date.now()
+        order.save()
+        
+        return order
+      } else {
+        throw new Error("ONLY ADMIN")
+      }
+      
+    }else {
+      throw new Error("AUTH REQUIRE ")
+    }
+    
   }),
 }
 

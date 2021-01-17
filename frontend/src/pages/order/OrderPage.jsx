@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import Loader from "../../components/loader/Loader"
 import Message from "../../components/message/Message"
-import { getOrderById } from "../../redux/order/orderAction"
+import { getOrderById, updateOrderToDelvired } from "../../redux/order/orderAction"
 import { updateOrderPay } from "../../redux/order/orderPay/orderPayAction"
 
 const OrderPage = ({ match }) => {
@@ -15,7 +15,8 @@ const OrderPage = ({ match }) => {
   const { orderDetail, orderDetailFetchState, orderDetailErrorMassge } = order
   const [sdkReady, setSdkReady] = useState(false)
   const orderPay = useSelector((state) => state.orderPayReducer)
-  const {  loadingPay,  successPay } = orderPay
+  const {userInfo} = useSelector((state) => state.userReducer)
+  const { loadingPay, successPay } = orderPay
 
   useEffect(() => {
     const addPaypalScript = async () => {
@@ -25,16 +26,15 @@ const OrderPage = ({ match }) => {
       console.log(data)
       script.src = `https://www.paypal.com/sdk/js?client-id=sb`
       script.async = true
- 
+
       script.onload = () => {
         setSdkReady(true)
-      } 
+      }
       document.body.appendChild(script)
-    } 
-    console.log(orderPay);
+    }
     if (successPay || !orderDetail || orderDetail._id !== match.params.id) {
       dispatch({ type: "ORDER_PAY_RESET" })
-      dispatch(getOrderById({ id: match.params.id })) 
+      dispatch(getOrderById({ id: match.params.id }))
     } else if (!order.isPaid) {
       if (!window.paypal) {
         // addPaypalScript()
@@ -42,10 +42,13 @@ const OrderPage = ({ match }) => {
         setSdkReady(true)
       }
     }
-  }, [match.params.id, dispatch, successPay, orderDetail ])
+  }, [match.params.id, dispatch, successPay, orderDetail])
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
-    dispatch(updateOrderPay(orderDetail._id ,paymentResult ))
+    dispatch(updateOrderPay(orderDetail._id, paymentResult))
+  }
+  const assignDeleveryHandler = ()=>{
+    dispatch(updateOrderToDelvired(orderDetail._id))
   }
 
   return orderDetailFetchState ? (
@@ -78,9 +81,9 @@ const OrderPage = ({ match }) => {
                 {orderDetail?.shippingAddress?.country}
               </p>
 
-              {orderDetail?.isDeliverd ? (
+              {orderDetail?.isDelivered ? (
                 <Message variant="success">
-                  paid on {orderDetail?.deliverdAt}{" "}
+                  deleverd at {new Date(JSON.parse(orderDetail?.deliveredAt)).toUTCString() }{" "}
                 </Message>
               ) : (
                 <Message variant="danger">not deliverd</Message>
@@ -96,7 +99,8 @@ const OrderPage = ({ match }) => {
               </p>
               {orderDetail?.isPaid ? (
                 <Message variant="success">
-                  paid on {new Date(JSON.parse(orderDetail?.paidAt)).toUTCString()}{" "}
+                  paid on{" "}
+                  {new Date(JSON.parse(orderDetail?.paidAt)).toUTCString()}{" "}
                 </Message>
               ) : (
                 <Message variant="danger">not paid</Message>
@@ -169,13 +173,17 @@ const OrderPage = ({ match }) => {
                   <Loader />
                 ) : (
                   <PayPalButton
-                  
                     amount={orderDetail?.totalPrice}
                     onSuccess={successPaymentHandler}
                   />
                 )}
               </ListGroup.Item>
-            )} 
+            )}
+            {userInfo.isAdmin && !orderDetail?.isDelivered && (
+              <ListGroup.Item style={{ margin: "auto", border: "none" }}  >
+                <Button onClick={assignDeleveryHandler}> Assign as deleverd </Button>
+              </ListGroup.Item>
+            )}
             {!orderDetail?.isPaid && (
               <ListGroup.Item>
                 phone : {orderDetail?.shippingAddress?.postalCode}

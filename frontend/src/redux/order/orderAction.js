@@ -149,6 +149,7 @@ export const getOrderById = ({ id }) => async (dispatch, getState) => {
           isPaid
           isDelivered
           paidAt
+          deliveredAt
           createdAt
           updatedAt
       }
@@ -184,3 +185,80 @@ export const getOrderById = ({ id }) => async (dispatch, getState) => {
     })
   }
 }
+
+
+export const updateOrderToDelvired = (id ) => async (dispatch, getState) => {
+  try {
+    const token = getState().userReducer.userInfo.token
+    
+    const query = `mutation updateOrderToDeliverd($id:String!){
+      updateOrderToDeliverd(id:$id){
+          _id
+          orderItems{
+              _id 
+              name
+              qty
+              image
+              price
+              product{
+                _id
+              }
+          }
+          shippingAddress{
+               city
+               address
+               postalCode
+               country
+            }
+          itemsPrice
+          paymentMethod 
+          taxPrice 
+          shippingPrice
+          totalPrice
+          orderCreator{
+              _id
+              name
+              email
+          
+          }
+          isPaid
+          isDelivered
+          paidAt
+          deliveredAt
+          createdAt
+          updatedAt
+      }
+  }`
+
+    const variables = { id }
+    const { data } = await Axios.post(
+      "/graphql",
+      {
+        query,
+        variables,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    dispatch({
+      type: orderTypes.ORDER_DETAIL_SUCCESS,
+      payload: data.data.getOrderById,
+    })
+  } catch (error) {
+    const errorMessage = error.response?.data.errors
+      ? error.response?.data.errors[0].message
+      : error.response?.data
+      ? error.response?.data
+      : "error happend"
+    dispatch({
+      type: orderTypes.ORDER_DETAIL_FAIL,
+      payload: errorMessage,
+    })
+  }
+}
+
+

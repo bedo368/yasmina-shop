@@ -8,14 +8,14 @@ const product = ({ product, Home }) => {
     <Card
       className="my-4 p-4 rounded mx-auto  "
       // style={Home && { backgroundColor: "#E52165", color: "white" }}
-      style={{boxShadow:"5px 5px 20px"}}
+      style={{boxShadow:"5px 5px 20px" ,textAlign: "center"}}
     >
       <Link to={`/product/${product?._id}`}>
         <Card.Img
         
           src={product?.image}
           variant="top"
-          style={{ maxHeight: "300px", minHeight: "300px" ,boxShadow:"2px 2px 20px" }}
+          style={{ maxHeight: "300px", minHeight: "300px" ,boxShadow:"2px 2px 20px"  }}
         />
       </Link>
       <Card.Body>
@@ -23,7 +23,7 @@ const product = ({ product, Home }) => {
           <Card.Title
             as="div"
             className="mx-auto"
-            style={{  alignSelf: "flex-end" }}
+            style={{ fontSize:"20px" , font:"bold" , fontWeight:"bolder"  }}
           >
             {" "}
             {product?.name}{" "}
@@ -39,7 +39,7 @@ const product = ({ product, Home }) => {
         </Card.Text>
         <Card.Text as="h3">{product?.price} LE</Card.Text>
       </Card.Body> 
-    </Card>
+    </Card> 
   )
 }
 

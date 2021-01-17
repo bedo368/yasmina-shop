@@ -24,6 +24,7 @@ const orderReducer = (
       }
     case orderTypes.ORDER_DETAIL_FAIL:
       return {
+        ...state,
         orderDetailFetchState: false,
         orderDetailErrorMassge: action.payload,
       }

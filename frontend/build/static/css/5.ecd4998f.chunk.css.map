@@ -1,0 +1,1 @@
+{"version":3,"sources":["rating.scss","home.scss"],"names":[],"mappings":"AAAA,aAEQ,YAAa,CAFrB,WAKQ,cAAgB,CCLxB,cACE,UACF","file":"5.ecd4998f.chunk.css","sourcesContent":[".rating { \n    span{\n        margin: .1rem;\n    }\n    h3{\n        padding: 1rem 0 ;\n    }\n}",".nav-category{\n  color: aqua\n}"]}

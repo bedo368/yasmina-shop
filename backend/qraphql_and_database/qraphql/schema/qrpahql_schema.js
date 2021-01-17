@@ -124,6 +124,7 @@ export default buildSchema(`
             top: Boolean) : Product!
 
             removeOrder(_id: String!): Order!
+            updateOrderToDeliverd(id:String):Order!
     
     }
 

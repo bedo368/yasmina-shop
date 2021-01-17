@@ -25,7 +25,7 @@ app.post(
     graphqlHTTP({  
         graphiql: false,
         schema: schema,
-        rootValue: resolovers,
+        rootValue: resolovers, 
     })
 )
 app.get("/api/config/paypal", (req, res) =>{
