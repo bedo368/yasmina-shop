@@ -130,7 +130,7 @@ const OrderPage = ({ match }) => {
                         </Link>
                       </Col>
                       <Col>
-                        {item.qty} x {item.price} = {item.qty * item.price}$
+                        {item.qty} x {item.price} = {item.qty * item.price}<small>L.E</small>
                       </Col>
                     </Row>
                   </ListGroup.Item>

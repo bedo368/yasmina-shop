@@ -39,9 +39,12 @@ const ProductPage = ({ match, history }) => {
 
   return (
     <div className="productPage">
-      <Button className="btn btn-light my-3" onClick={()=>{
-        history.goBack()
-      }} >
+      <Button
+        className="btn btn-light my-3"
+        onClick={() => {
+          history.goBack()
+        }}
+      >
         Go Back
       </Button>
       {loading ? (
@@ -51,7 +54,12 @@ const ProductPage = ({ match, history }) => {
       ) : (
         <Row>
           <Col md={6}>
-            <Image src={product?.image} alt={product?.name} fluid style={{ maxHeight: "500px",boxShadow:"2px 2px 20px" }} />
+            <Image
+              src={product?.image}
+              alt={product?.name}
+              fluid
+              style={{ maxHeight: "500px", boxShadow: "2px 2px 20px" }}
+            />
           </Col>
           <Col md={3}>
             <ListGroup.Item>
@@ -63,7 +71,7 @@ const ProductPage = ({ match, history }) => {
                 text={`${product?.numReviews} reviews `}
               />
             </ListGroup.Item>
-            <ListGroup.Item>price : {product?.price}$</ListGroup.Item>
+            <ListGroup.Item>price : {product?.price}<small>L.E</small></ListGroup.Item>
             <ListGroup.Item>
               Description : {product?.description}
             </ListGroup.Item>
@@ -74,7 +82,7 @@ const ProductPage = ({ match, history }) => {
                 <Row>
                   <Col>price</Col>
                   <Col>
-                    <strong> ${product?.price} </strong>{" "}
+                    <strong> ${product?.price} <small>L.E</small> </strong>{" "}
                   </Col>
                 </Row>
               </ListGroup.Item>
