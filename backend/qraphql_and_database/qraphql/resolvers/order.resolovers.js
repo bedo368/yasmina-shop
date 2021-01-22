@@ -34,9 +34,18 @@ const orderQuery = {
     }
   }),
   getAllOrdersForAdmin: asyncHandler(async (args, req) => {
+    const PageSize = 8
+    var pageNumber = args.pageNumber
     if (req.currentUser.isAdmin) {
-      const allOrders = await (await Order.find()).reverse()
-      return allOrders
+      const ordersCount = await Order.countDocuments()
+      const allOrders = await Order.find().sort({$natural:-1})
+        .limit(PageSize)
+        .skip(PageSize * (pageNumber - 1))
+      return {
+        orders: allOrders,
+        pageNumber,
+        pages: Math.ceil(ordersCount / PageSize),
+      }
     } else {
       throw new Error("admin only")
     }
@@ -116,10 +125,9 @@ const orderMutation = {
     }
   }),
   updateOrderToDeliverd: asyncHandler(async (args, req) => {
-
-    console.log(req.currentUser);
-    console.log(req.isAuth);
-    if(req.isAuth){
+    console.log(req.currentUser)
+    console.log(req.isAuth)
+    if (req.isAuth) {
       if (req.currentUser.isAdmin) {
         const order = await Order.findById(args.id).populate(
           "orderCreator",
@@ -128,16 +136,14 @@ const orderMutation = {
         order.isDelivered = true
         order.deliveredAt = Date.now()
         order.save()
-        
+
         return order
       } else {
         throw new Error("ONLY ADMIN")
       }
-      
-    }else {
+    } else {
       throw new Error("AUTH REQUIRE ")
     }
-    
   }),
 }
 

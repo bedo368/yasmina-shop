@@ -70,14 +70,15 @@ function App({}) {
               <Route path="/register" component={RegisterPage} />
               <Route path="/profile" component={ProfilePage} />
               <Route path="/user/orders" component={UserOrderPage} />
-              <Route path="/admin/orderlist" component={AdminOrdersPage} />
+              <Route path="/admin/orderlist" component={AdminOrdersPage} exact />
+              <Route path="/admin/orderlist/page/:pageNumber" component={AdminOrdersPage}  />
               <Route path="/shipping" component={ShippingPage} />
               <Route path="/payment" component={PaymentMetodPage} />
               <Route path="/placeorder" component={PlaceOrderPage} />
               <Route path="/order/:id" component={OrderPage} />
               <Route path="/admin/userlist" component={UsersListPage} />
               <Route
-                path="/owner/productslist"
+                path="/owner/productslist" 
                 component={ProductsListPage}
                 exact
               />

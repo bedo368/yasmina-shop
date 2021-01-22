@@ -80,6 +80,12 @@ export default buildSchema(`
         pages : Int
         category : String
     }
+    type OrderWithPages {
+        orders:[Order]!
+        pageNumber :Int
+        pages :Int
+
+    }
 
 
     type rootQuery{ 
@@ -92,7 +98,7 @@ export default buildSchema(`
         getAllUsersForAdmin : [User]!
         getUserByIdForAdmin (id:String!): User!
         updateUserProfileForAdmin(id:String!, name:String, email:String, adminPassword:String!, isAdmin : Boolean!): User!
-        getAllOrdersForAdmin : [Order]!
+        getAllOrdersForAdmin (pageNumber : Int) :OrderWithPages!
         getTopProduct : [Product]!
         getCategories : [String]
     }

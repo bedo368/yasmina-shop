@@ -9,13 +9,27 @@ const getLogedInUserOrdersReducer = (
       return { LogedInUserOrdersFetchState: true }
     case getLogedInUserOrdersTypes.GET_LOGED_IN_USER_ORDERS_SUCCESS:
       return { LogedInUserOrdersFetchState: false, ordersList: action.payload }
+
+    case getLogedInUserOrdersTypes.GET_ADMIN_ORDERS_SUCCESS:
+      return {
+        LogedInUserOrdersFetchState: false,
+        ordersList: action.payload.orders,
+        pages: action.payload.pages,
+        pageNumber: action.payload.pageNumber,
+      }
     case getLogedInUserOrdersTypes.GET_LOGED_IN_USER_ORDERS_FAIL:
       return {
         LogedInUserOrdersFetchState: false,
         LogedInUserErrorMessage: action.payload,
       }
-      case getLogedInUserOrdersTypes.REMOVR_ORDER:
-        return{ ...state , ordersList : state.ordersList.filter((order) => String(order._id) !== String(action.payload._id))}
+
+    case getLogedInUserOrdersTypes.REMOVR_ORDER:
+      return {
+        ...state,
+        ordersList: state.ordersList.filter(
+          (order) => String(order._id) !== String(action.payload._id)
+        ),
+      }
     default:
       return state
   }

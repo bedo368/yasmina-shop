@@ -186,11 +186,10 @@ export const getOrderById = ({ id }) => async (dispatch, getState) => {
   }
 }
 
-
-export const updateOrderToDelvired = (id ) => async (dispatch, getState) => {
+export const updateOrderToDelvired = (id) => async (dispatch, getState) => {
   try {
     const token = getState().userReducer.userInfo.token
-    
+
     const query = `mutation updateOrderToDeliverd($id:String!){
       updateOrderToDeliverd(id:$id){
           _id
@@ -260,5 +259,3 @@ export const updateOrderToDelvired = (id ) => async (dispatch, getState) => {
     })
   }
 }
-
-

@@ -8,6 +8,7 @@ const Paginate = ({
   page,
   isAdmin = false,
   keyword = "",
+  order= false
 }) => {
   return (
     pages > 1 && (
@@ -19,7 +20,7 @@ const Paginate = ({
               window.scrollTo({top:400 , behavior:"auto"});
 
             }}
-            to={ !isOwner ? !isAdmin ? keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x+1}` : `/admin/productslist/page/${x+1}` : `/owner/productslist/page/${x+1}` }
+            to={ order ? `/admin/orderlist/page/${x+1}` : !isOwner ? !isAdmin ? keyword ? `/search/${keyword}/page/${x + 1}` : `/page/${x+1}` : `/admin/productslist/page/${x+1}` : `/owner/productslist/page/${x+1}` }
           >
             <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
           </LinkContainer>

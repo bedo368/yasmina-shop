@@ -17,7 +17,7 @@ app.use(authMiddleWare)
 app.use(errorHandler)
 app.use("/user", UserRoutes)
 app.use("/upload", uploadRoute)
-dotenv.config()
+dotenv.config() 
 const __dirname = path.resolve()
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
 app.post(
@@ -27,7 +27,7 @@ app.post(
         schema: schema,
         rootValue: resolovers, 
     })
-)
+) 
 app.get("/api/config/paypal", (req, res) =>{
     console.log(process.env.PAYPAL_CLIENT_ID);
     res.send(process.env.PAYPAL_CLIENT_ID)}

@@ -92,21 +92,28 @@ export const getLogedInUserOrders = () => async (dispatch, getState) => {
   }
   
 
-  export const getOerdersForAdmin = () => async (dispatch, getState) => {
+  export const getOerdersForAdmin = (page=1) => async (dispatch, getState) => {
+    console.log(page);
     try {
       const token = getState().userReducer.userInfo.token
       dispatch({
         type: getLogedInUserOrdersTypes.GET_LOGED_IN_USER_ORDERS_START,
       })
       const query = `query {
-        getAllOrdersForAdmin{
-            _id
+        getAllOrdersForAdmin( pageNumber: ${page} )
+        {
+            orders {
+              _id
             totalPrice
             isPaid
             isDelivered
             paidAt
             deliveredAt
             createdAt
+            }
+
+            pageNumber
+            pages
         }
     }`
   
@@ -123,7 +130,7 @@ export const getLogedInUserOrders = () => async (dispatch, getState) => {
         }
       )
       dispatch({
-        type:getLogedInUserOrdersTypes.GET_LOGED_IN_USER_ORDERS_SUCCESS ,
+        type:getLogedInUserOrdersTypes.GET_ADMIN_ORDERS_SUCCESS ,
         payload: data.data.getAllOrdersForAdmin,
       })
     } catch (error) {
